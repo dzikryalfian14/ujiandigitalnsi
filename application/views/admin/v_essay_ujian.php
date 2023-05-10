@@ -68,6 +68,7 @@ $this->load->view('admin/sidebar');
                             <th width="10%">Kode Ujian </th>
                             <th width="20%">Nama Ujian</th>
                             <th>Pertanyaan</th>
+                            <th>Soal Gambar</th>
                             <th width="13%">Bobot Soal</th>
                             <th width="8%">Aksi</th>
                         </tr>
@@ -91,6 +92,9 @@ $this->load->view('admin/sidebar');
                                         echo '<br><img src="' . $image_src . '" width="200">';
                                     }
                                     ?>
+                                </td>
+                                <td>
+                                    <?php echo $d->gambar; ?>
                                 </td>
                                 <td>
                                     <?php echo $d->jawaban; ?>

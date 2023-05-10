@@ -5,7 +5,7 @@
     <div class="pull-right hidden-xs">
 
     </div>
-    <strong>Copyright &copy; 2023 <a href="#"></a></strong> All rights reserved. | Was created by Dzikry</a>
+    <strong>Copyright &copy; 2023 <a href="#"></a></strong> All rights reserved. | Departement IT Nihon Seiki Indonesia</a>
   </footer>
 
   </div>

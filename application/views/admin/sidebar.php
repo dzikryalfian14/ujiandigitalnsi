@@ -83,15 +83,10 @@
                 <a href="<?php echo base_url('hasil_ujian_essay'); ?>"><i class="fa fa-check-square-o"></i>
                   <span>Hasil Ujian</span>
                 </a>
-              </li>
-              <li <?= $this->uri->segment(1) == 'koreksi_essay' ? 'class="active"' : '' ?>>
-                <a href="<?php echo base_url('koreksi_essay'); ?>"><i class="fa fa-pencil"></i>
-                  <span>Koreksi Essay</span>
-                </a>
-              </li>
+
               <li <?= $this->uri->segment(1) == 'koreksi_peserta_essay' ? 'class="active"' : '' ?>>
                 <a href="<?php echo base_url('koreksi_peserta_essay'); ?>"><i class="fa fa-pencil"></i>
-                  <span>Koreksi Essay Revisi ea</span>
+                  <span>Koreksi Essay </span>
                 </a>
               </li>
             </ul>
@@ -102,12 +97,6 @@
               <span>Kelola Database</span>
             </a>
           </li>
-
-
-
-
-
-
 
 
 

@@ -9,7 +9,7 @@
 		document.write(creditsyear.getFullYear());
 	</script> <a expr:href='data:blog.homepageUrl'>
 		<data:blog.title />
-	</a>. All rights reserved. | was created by Dzikry</a>
+	</a>. All rights reserved. | Departement IT Nihon Seiki Indonesia</a>
 </footer>
 
 </div>

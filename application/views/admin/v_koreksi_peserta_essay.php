@@ -12,8 +12,19 @@ $this->load->view('admin/sidebar');
 
 <!-- Main content -->
 <section class="content">
+
     <div class="row">
         <div class="col-md-12">
+            <div class="box-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-mid">
+                            <h3 class="box-title">Koreksi Ujian</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Default box -->
             <div class="box box-success" style="overflow-x: scroll;">
@@ -26,6 +37,7 @@ $this->load->view('admin/sidebar');
                                 <th>Peserta</th>
                                 <th>Nama Ujian</th>
                                 <th>Koreksi Ujian</th>
+                                <th>Status Koreksi</th>
                             </tr>
                         </thead>
 
@@ -39,50 +51,19 @@ $this->load->view('admin/sidebar');
                                     <td><?php echo $row->nama_siswa; ?></td>
                                     <td><?php echo $row->nama_mapel_essay; ?></td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default-<?php echo $row->id_siswa; ?>">Koreksi Jawaban <?php echo $row->nama_mapel_essay; ?></button>
-
-                                        <!-- /. modal  -->
-                                        <div class="modal fade" id="modal-default-<?php echo $row->id_siswa; ?>">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                        <center>
-                                                            <h4 class="modal-title">Koreksi Jawaban </h4>
-                                                        </center>
-                                                    </div>
-                                                    <!-- /.form dengan modal -->s
-                                                    <form method="post" action="<?php echo base_url() . 'koreksi_peserta_essay/nilai_aksi'; ?>">
-                                                        <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <label class="font-weight-bold">Jawaban Peserta</label>
-                                                                <textarea class="form-control" name="jawaban_peserta" placeholder="Masukkan jawaban peserta" required=""></textarea>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="font-weight-bold">Nilai Jawaban</label>
-                                                                <input type="text" class="form-control" name="nilai_jawaban" placeholder="Masukkan nilai jawaban" required="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <input type="hidden" name="id_peserta" value="<?php echo $row->id_siswa; ?>">
-                                                            <button type="submit" class="btn btn-primary">Simpan</button>
-                                                        </div>
-                                                    </form>
-                                                    <!-- /.tutup form dengan modal  -->
-                                                </div>
-                                                <!-- /.modal-content -->
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                        </div>
-                                        <!-- /.modal -->
+                                        <a href="<?php echo base_url('koreksi_essay') . '?id_siswa=' . $row->id_siswa . '&nama_mapel=' . $row->nama_mapel_essay; ?>" class="btn btn-primary">Lihat Jawaban <?php echo $row->nama_mapel_essay; ?></a>
                                     </td>
+
+                                    <td>
+
+                                    </td>
+
                                 </tr>
                             <?php } ?>
                         </tbody>
-
                     </table>
+
+
 
                 </div>
             </div>
@@ -91,44 +72,68 @@ $this->load->view('admin/sidebar');
         <!-- ./row -->
 </section><!-- /.content -->
 
-<!-- /. modal  -->
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <center>
-                    <h4 class="modal-title">Masukkkan Nilai Akhir Peserta</h4>
-                </center>
-            </div>
-            <!-- /.form dengan modal -->
-            <form method="post" action="<?php echo base_url() . 'koreksi_essay/nilai_aksi'; ?>">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="font-weight-bold">Nilai Akhir Peserta</label>
-                        <input type="text" class="form-control" name="nama" placeholder="Masukkan Nilai Akhir Peserta" required="">
-                    </div>
-                </div>
-                <div class="modal-footer">
-
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-            <!-- /.tutup form dengan modal  -->
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 
 <?php
 $this->load->view('admin/js');
 ?>
 
 <!--tambahkan custom js disini-->
+
+<script>
+    $(document).ready(function() {
+        $('.btn-koreksi').click(function(e) {
+            var id_siswa = $(this).data('id');
+            var button = $(this);
+
+            $.ajax({
+                url: '<?php echo base_url('koreksi_essay/koreksi_siswa'); ?>',
+                type: 'post',
+                data: {
+                    id_siswa: id_siswa
+                },
+                success: function(response) {
+                    if (response == 'success') {
+                        button.parent().html('Sudah Dikoreksi');
+                    } else {
+                        alert('Terjadi kesalahan saat melakukan koreksi');
+                    }
+                }
+            });
+        });
+    });
+</script>
+<script>
+    function updateStatus(id_siswa, status) {
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo base_url('koreksi_essay'); ?>',
+            data: {
+                id_siswa: id_siswa,
+                status: status
+            },
+            success: function(response) {
+                if (response == 'success') {
+                    // Update status koreksi di data peserta
+                    var btn = $('button[data-id="' + id_siswa + '"]');
+                    var row = btn.closest('tr');
+                    var status_td = row.find('td:last-child');
+                    if (status == 2) {
+                        btn.removeClass('btn-belum').addClass('btn-sudah').text('Sudah Dikoreksi');
+                        status_td.text('Sudah Dikoreksi');
+                    } else {
+                        btn.removeClass('btn-sudah').addClass('btn-belum').text('Belum Dikoreksi');
+                        status_td.text('Belum Dikoreksi');
+                    }
+                }
+            }
+        });
+    }
+</script>
+
+
+
+
+
 
 <script type="text/javascript">
     $(function() {
@@ -138,6 +143,7 @@ $this->load->view('admin/js');
 
     $('.alert-message').alert().delay(3000).slideUp('slow');
 </script>
+
 
 <?php
 $this->load->view('admin/foot');

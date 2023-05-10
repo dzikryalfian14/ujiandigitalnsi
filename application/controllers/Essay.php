@@ -21,34 +21,27 @@ class essay extends CI_Controller
 
     public function insert()
     {
-
         $nama_mapel_essay = $this->input->post('nama_mapel_essay');
-        $soal             = $this->input->post('soal');
-        $soal_decoded     = base64_decode($soal);
-        $kunci            = $this->input->post('kunci');
+        $soal = $this->input->post('soal');
+        $gambar = $this->input->post('gambar');
+        $kunci = $this->input->post('kunci');
 
-        // // Handle uploaded file
-        // if ($_FILES['gambar_pertanyaan']['size'] > 0) {
-        //     $config['upload_path'] = './uploads/';
-        //     $config['allowed_types'] = 'jpg|jpeg|png|gif';
-        //     $config['max_size'] = '1024'; // 1MB
-        //     $config['file_name'] = uniqid() . '_' . $_FILES['gambar_pertanyaan']['name'];
-        //     $this->load->library('upload', $config);
-        //     if ($this->upload->do_upload('gambar_pertanyaan')) {
-        //         $gambar_pertanyaan = $this->upload->data('file_name');
-        //     } else {
-        //         $error = $this->upload->display_errors();
-        //         $this->session->set_flashdata('message', '<div class="alert alert-danger alert-message alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-ban"></i> Maaf, Input Soal Gagal!</h4>' . $error . '</div>');
-        //         redirect(base_url('essay'));
-        //     }
-        // } else {
-        //     $gambar_pertanyaan = '';
-        // }
+        // handle gambar
+        $config['upload_path'] = './uploads/'; //lokasi penyimpanan gambar
+        $config['allowed_types'] = 'jpg|jpeg|png'; //tipe file gambar yang diperbolehkan
+        $config['encrypt_name'] = TRUE; //nama file gambar diacak
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('gambar_pertanyaan')) {
+            $gambar = $this->upload->data('file_name'); //nama file gambar disimpan ke database
+        } else {
+            $gambar = ''; //jika gambar tidak diupload
+        }
 
         $data = array(
             'id_mapel_essay' => $nama_mapel_essay,
             'pertanyaan' => $soal,
-            // 'gambar_pertanyaan' => $gambar_pertanyaan,
+            'gambar' => $gambar,
             'jawaban' => $kunci
         );
         if ($nama_mapel_essay == '' || $soal == '') {

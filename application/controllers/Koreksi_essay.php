@@ -16,6 +16,11 @@ class koreksi_essay extends CI_Controller
 
     public function index()
     {
+
+        $id_siswa = $this->input->get('id_siswa');
+        $nama_mapel = $this->input->get('nama_mapel');
+        $data['jawaban'] = $this->M_koreksi_essay->get_data1_by_id_siswa($id_siswa);
+
         // ambil data peserta ujian
         $data['peserta'] = $this->M_koreksi_essay->get_data2();
 
@@ -24,6 +29,16 @@ class koreksi_essay extends CI_Controller
 
         // ambil data kelas
         $data['kelas'] = $this->m_data->get_data('tb_mapel_essay')->result();
+
+
+        // ambil data jawaban peserta dan soal
+        $data['jawaban_peserta_soal'] = $this->M_koreksi_essay->get_jawaban_peserta_soal();
+
+        // ambil data soal essay
+        $data['soal'] = $this->M_koreksi_essay->get_data_soal();
+
+        $data['daftar_soal'] = $this->M_koreksi_essay->get_data_soal();
+
 
         // ambil data soal
         if (isset($_GET['id'])) {
@@ -50,9 +65,24 @@ class koreksi_essay extends CI_Controller
         $data['soal_jawaban'] = $this->M_koreksi_essay->get_soal_jawaban_by_id_peserta($id_peserta);
         $data['kelas'] = $this->m_data->get_data('tb_mapel_essay')->result();
 
+        //
+
 
         $this->load->view('admin/v_koreksi_essay', $data);
     }
+
+    public function detail_jawaban($id_soal)
+    {
+        // Ambil data soal
+        $data['soal'] = $this->M_koreksi_essay->get_data_soal2($id_soal);
+
+        // Ambil data jawaban yang sama dengan ID soal
+        $data['jawaban'] = $this->M_koreksi_essay->get_jawaban_by_id_soal($id_soal);
+
+        // Tampilkan data ke view
+        $this->load->view('detail_jawaban', $data);
+    }
+
 
 
     public function nilai_aksi()

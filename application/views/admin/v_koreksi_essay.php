@@ -24,12 +24,12 @@ $this->load->view('admin/sidebar');
                 <form action="" method="get" class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Nama Ujian</label>
+                            <label class="col-sm-2 control-label">Soal Ujian</label>
                             <div class="col-sm-10">
                                 <select class="select2 form-control" name="id" required="">
-                                    <option selected="selected" disabled="">- Pilih Nama Ujian -</option>
-                                    <?php foreach ($kelas as $a) { ?>
-                                        <option value="<?= $a->id_mapel_essay ?>"><?= $a->kode_mapel_essay; ?> | <?= $a->nama_mapel_essay; ?></option>
+                                    <option selected="selected" disabled="">- Pilih Soal Ujian -</option>
+                                    <?php foreach ($soal as $a) { ?>
+                                        <option value="<?= $a->id_mapel_essay ?>"><?= $a->id_soal_essay; ?> | <?= $a->pertanyaan; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -60,42 +60,22 @@ $this->load->view('admin/sidebar');
                             <tr>
                                 <th width="1%">No</th>
                                 <th>Peserta</th>
-                                <th>Nama Ujian</th>
-                                <th>Soal Essay</th>
-                                <th>Jawaban Peserta</th>
-                                <th>Koreksi Ujian</th>
+                                <th>Pertanyaan</th>
+                                <th>Jawaban</th>
                             </tr>
                         </thead>
-
                         <tbody>
-                            <?php
-                            $no = 1;
-                            foreach ($peserta as $p) { ?>
-                                <?php foreach ($jawaban as $j) { ?>
-                                    <?php if ($j->id_siswa == $p->id_siswa) { ?>
-                                        <tr>
-                                            <td><?php echo $no++; ?></td>
-                                            <td><?php echo $p->nama_siswa; ?></td>
-                                            <td>
-                                                <?php echo $p->nama_mapel_essay; ?>
-                                            </td>
-                                            <td>
-                                                <?php foreach ($soal as $s) { ?>
-                                                    <?php if ($s->id_mapel_essay == $p->id_mapel_essay) { ?>
-                                                        <?php echo $s->pertanyaan; ?>
-                                                    <?php } ?>
-                                                <?php } ?>
-                                            </td>
-                                            <td><?php echo $j->jawaban; ?></td>
-                                            <td> <a href="koreksi-ujian.php?id=" class="btn btn-primary">Koreksi</a></td>
-
-                                        </tr>
-                                    <?php } ?>
-                                <?php } ?>
-                            <?php } ?>
+                            <?php $no = 1;
+                            foreach ($jawaban_peserta_soal as $row) : ?>
+                                <tr>
+                                    <td><?php echo $no++; ?></td>
+                                    <td><?php echo $row->nama_siswa; ?></td>
+                                    <td><?php echo $row->pertanyaan; ?></td>
+                                    <td><?php echo $row->jawaban; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
-
                 </div>
             </div>
             <!-- /.col-->
@@ -103,38 +83,6 @@ $this->load->view('admin/sidebar');
         <!-- ./row -->
 </section><!-- /.content -->
 
-<!-- /. modal  -->
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <center>
-                    <h4 class="modal-title">Masukkkan Nilai Akhir Peserta</h4>
-                </center>
-            </div>
-            <!-- /.form dengan modal -->
-            <form method="post" action="<?php echo base_url() . 'koreksi_essay/nilai_aksi'; ?>">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="font-weight-bold">Nilai Akhir Peserta</label>
-                        <input type="text" class="form-control" name="nama" placeholder="Masukkan Nilai Akhir Peserta" required="">
-                    </div>
-                </div>
-                <div class="modal-footer">
-
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-            <!-- /.tutup form dengan modal  -->
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 
 <?php
 $this->load->view('admin/js');

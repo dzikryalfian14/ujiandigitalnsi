@@ -6,9 +6,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 
-
-
-
 class siswa extends CI_Controller
 {
 

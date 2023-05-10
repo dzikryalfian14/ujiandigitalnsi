@@ -41,7 +41,7 @@ $this->load->view('admin/sidebar');
                         <thead>
                             <tr>
                                 <th width="1%">No</th>
-                                <th>Nama Siswa</th>
+                                <th>Nama Peserta</th>
                                 <th>Ruangan</th>
                                 <th>Nama Ujian</th>
                                 <th>Jenis Ujian</th>

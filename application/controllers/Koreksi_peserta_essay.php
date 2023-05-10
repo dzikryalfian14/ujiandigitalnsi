@@ -15,38 +15,19 @@ class Koreksi_peserta_essay extends CI_Controller
 
     public function index()
     {
-        // ambil data peserta dan jawaban essay
+        // // ambil data peserta dan jawaban essay
         $data['peserta'] = $this->M_koreksi_essay->get_data2();
         $data['jawaban'] = $this->M_koreksi_essay->get_data1();
 
+        $id_siswa = $this->input->get('id_siswa');
+        $nama_mapel = $this->input->get('nama_mapel');
+        $data['jawaban'] = $this->M_koreksi_essay->get_data1_by_id_siswa($id_siswa);
+
+        // // Ambil data peserta dan jawaban essay
+        // $data['peserta'] = $this->M_koreksi_essay->get_data2_by_id_siswa();
+        // $data['jawaban'] = $this->M_koreksi_essay->get_data1_by_id_siswa();
+
+
         $this->load->view('admin/v_koreksi_peserta_essay', $data);
-    }
-
-    public function nilai_aksi($id_peserta)
-    {
-        // ambil nilai dari form input
-        $nilai = $this->input->post('nilai');
-
-        // update nilai peserta
-        $data = array(
-            'nilai_essay' => $nilai
-        );
-        $where = array('id_peserta' => $id_peserta);
-        $this->M_data->update_data($where, $data, 'tb_peserta_essay');
-
-        // set flash data untuk notifikasi sukses
-        $this->session->set_flashdata('message', '<div class="alert alert-success alert-message"><i class="icon fa fa-check"></i><b>Selamat !<br></b> Anda telah berhasil menambahkan data Mata Pelajaran</div>');
-
-        // redirect ke halaman koreksi_peserta_essay
-        redirect(base_url('koreksi_peserta_essay'));
-    }
-
-    public function koreksi($id_peserta)
-    {
-        // ambil data peserta dan jawaban essay
-        $data['peserta'] = $this->M_koreksi_essay->get_data_peserta_essay($id_peserta);
-        $data['jawaban'] = $this->M_koreksi_essay->get_data_jawaban($id_peserta);
-
-        $this->load->view('admin/v_koreksi_essay', $data);
     }
 }
