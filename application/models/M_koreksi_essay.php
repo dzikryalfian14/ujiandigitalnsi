@@ -3,8 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_koreksi_essay extends CI_Model
 {
-
-
     public function get_jawaban_peserta_soal()
     {
         $this->db->select('tb_peserta_essay.id_siswa, tb_siswa.nama_siswa, tb_soal_essay.pertanyaan, tb_jawaban_essay.jawaban');
@@ -160,10 +158,43 @@ class M_koreksi_essay extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function update_status_koreksi($id_siswa, $status_koreksi)
+
+    // public function update_status_koreksi($id_siswa, $status_koreksi)
+    // {
+    //     $this->db->set('status_koreksi', $status_koreksi);
+    //     $this->db->where('id_siswa', $id_siswa);
+    //     $this->db->update('tabel_peserta_essay');
+    // }
+
+    // public function update_status_koreksi($id_siswa, $nama_mapel)
+    // {
+    //     $data = array(
+    //         'status_koreksi' => 'sudah dikoreksi'
+    //     );
+
+    //     $this->db->where('id_siswa', $id_siswa);
+    //     $this->db->where('nama_mapel_essay', $nama_mapel);
+    //     $this->db->update('nama_tabel_peserta_essay', $data);
+    // }
+
+    public function update_status_koreksi($id_jawaban, $status_koreksi)
     {
         $this->db->set('status_koreksi', $status_koreksi);
+        $this->db->where('id', $id_jawaban);
+        $this->db->update('tb_peserta_essay');
+    }
+
+    public function update_status_koreksi_by_id_siswa($id_siswa, $nama_mapel)
+    {
+        $this->db->set('status_koreksi', 1);
         $this->db->where('id_siswa', $id_siswa);
-        $this->db->update('tabel_peserta_essay');
+        $this->db->where('nama_mapel_essay', $nama_mapel);
+        $this->db->update('tb_jawaban_essay');
+    }
+
+    public function update_data($id_peserta_essay, $data)
+    {
+        $this->db->where('id_peserta_essay', $id_peserta_essay);
+        $this->db->update('tb_jawaban_essay', $data);
     }
 }

@@ -133,6 +133,12 @@ class M_data extends CI_Model
 		$this->db->update('tb_peserta_essay', $data);
 	}
 
+	public function UpdateStatusKoreksi($status_koreksi, $data)
+	{
+		$this->db->where('status_koreksi', $status_koreksi);
+		$this->db->update('tb_peserta_essay', $data);
+	}
+
 
 
 	public function get_peserta($id_siswa)

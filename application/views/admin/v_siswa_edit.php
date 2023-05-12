@@ -1,4 +1,4 @@
-<?php 
+<?php
 $this->load->view('admin/head');
 ?>
 <!--tambahkan custom css disini-->
@@ -16,32 +16,36 @@ $this->load->view('admin/sidebar');
     <div class="col-md-12">
       <div class="box box-success" style="overflow-x: scroll;">
         <div class="box-header with-border">
-          <center><h3 class="box-title">Edit Data</h3></center>
+          <center>
+            <h3 class="box-title">Edit Data</h3>
+          </center>
         </div>
         <!-- /.box-header -->
-        <?php foreach($siswa as $a) { ?>
+        <?php foreach ($siswa as $a) { ?>
           <!-- form start -->
-          <form action="<?=base_url('siswa/update');?>" method="post" class="form-horizontal">
+          <form action="<?= base_url('siswa/update'); ?>" method="post" class="form-horizontal">
             <div class="box-body">
               <div class="form-group">
-                <label class="col-sm-2 control-label">Nama Siswa</label>
-                <input type="hidden" name="id" value="<?= $a->id_siswa;?>">
+                <label class="col-sm-2 control-label">Nama Peserta</label>
+                <input type="hidden" name="id" value="<?= $a->id_siswa; ?>">
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="nama" value="<?= $a->nama_siswa;?>" required>
+                  <input type="text" class="form-control" name="nama" value="<?= $a->nama_siswa; ?>" required>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">NIS (Nomor Induk Siswa)</label>
+                <label class="col-sm-2 control-label">NIK</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="nis" value="<?= $a->nis;?>" required>
+                  <input type="text" class="form-control" name="nis" value="<?= $a->nis; ?>" required>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Nama Kelas</label>
                 <div class="col-sm-10">
-                  <select class="select2 form-control" name="kelas" required="">                    
-                    <?php foreach($kelas as $k) { ?>
-                      <option value="<?=$k->id_kelas?>" <?php if($a->nama_kelas==$k->nama_kelas){echo "selected='selected'";} ?>><?= $k->nama_kelas;?></option>
+                  <select class="select2 form-control" name="kelas" required="">
+                    <?php foreach ($kelas as $k) { ?>
+                      <option value="<?= $k->id_kelas ?>" <?php if ($a->nama_kelas == $k->nama_kelas) {
+                                                            echo "selected='selected'";
+                                                          } ?>><?= $k->nama_kelas; ?></option>
                     <?php } ?>
                   </select>
                 </div>
@@ -49,28 +53,28 @@ $this->load->view('admin/sidebar');
               <div class="form-group">
                 <label class="col-sm-2 control-label">Username</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="username" value="<?= $a->username;?>" required>
+                  <input type="text" class="form-control" name="username" value="<?= $a->username; ?>" required>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">Password</label>
                 <div class="col-sm-10">
-                  <input type="password" class="form-control" name="password" value="<?= $a->password;?>" required>
+                  <input type="password" class="form-control" name="password" value="<?= $a->password; ?>" required>
                 </div>
               </div>
-              
+
               <div class="form-group">
                 <label class="col-sm-2 control-label"></label>
                 <div class="col-sm-10">
-                  <a href="<?=base_url('siswa')?>" class="btn btn-default btn-flat"><span class="fa fa-arrow-left"></span> Batal</a>
+                  <a href="<?= base_url('siswa') ?>" class="btn btn-default btn-flat"><span class="fa fa-arrow-left"></span> Batal</a>
                   <button type="submit" class="btn btn-primary btn-flat" title="Simpan Data Pengawas"><span class="fa fa-save"></span> Simpan</button>
                 </div>
               </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-              
-            </div> 
+
+            </div>
             <!-- /.box-footer -->
           </form>
         <?php } ?>
@@ -80,13 +84,12 @@ $this->load->view('admin/sidebar');
 
 </section><!-- /.content -->
 
-<?php 
+<?php
 $this->load->view('admin/js');
 ?>
 <!--tambahkan custom js disini-->
 
 <script type="text/javascript">
-
   $(document).ready(function() {
     $('#data').dataTable();
   });
@@ -94,8 +97,6 @@ $this->load->view('admin/js');
   $('.select2').select2();
 
   $('.alert-message').alert().delay(3000).slideUp('slow');
-
-
 </script>
 
 <?php

@@ -51,11 +51,15 @@ $this->load->view('admin/sidebar');
                                     <td><?php echo $row->nama_siswa; ?></td>
                                     <td><?php echo $row->nama_mapel_essay; ?></td>
                                     <td>
-                                        <a href="<?php echo base_url('koreksi_essay') . '?id_siswa=' . $row->id_siswa . '&nama_mapel=' . $row->nama_mapel_essay; ?>" class="btn btn-primary">Lihat Jawaban <?php echo $row->nama_mapel_essay; ?></a>
+                                        <a href="<?php echo base_url('koreksi_essay') ?>" class="btn btn-primary">Lihat Jawaban <?php echo $row->nama_mapel_essay; ?></a>
                                     </td>
-
                                     <td>
-
+                                        <?php if ($row->status_koreksi == 0) {
+                                            echo "<span> Belum Dikoreksi </span>";
+                                        } else if ($row->status_koreksi == 1) {
+                                            echo "<span> Sudah Dikoreksi </span>";
+                                        }
+                                        ?>
                                     </td>
 
                                 </tr>
@@ -78,57 +82,25 @@ $this->load->view('admin/js');
 ?>
 
 <!--tambahkan custom js disini-->
-
 <script>
-    $(document).ready(function() {
-        $('.btn-koreksi').click(function(e) {
-            var id_siswa = $(this).data('id');
-            var button = $(this);
-
-            $.ajax({
-                url: '<?php echo base_url('koreksi_essay/koreksi_siswa'); ?>',
-                type: 'post',
-                data: {
-                    id_siswa: id_siswa
-                },
-                success: function(response) {
-                    if (response == 'success') {
-                        button.parent().html('Sudah Dikoreksi');
-                    } else {
-                        alert('Terjadi kesalahan saat melakukan koreksi');
-                    }
-                }
-            });
-        });
-    });
-</script>
-<script>
-    function updateStatus(id_siswa, status) {
+    function updateStatus(id_siswa, nama_mapel) {
         $.ajax({
             type: 'POST',
-            url: '<?php echo base_url('koreksi_essay'); ?>',
+            url: '<?php echo base_url('koreksi_peserta_essay/update_status_ujian'); ?>',
             data: {
                 id_siswa: id_siswa,
-                status: status
+                nama_mapel: nama_mapel
             },
             success: function(response) {
-                if (response == 'success') {
-                    // Update status koreksi di data peserta
-                    var btn = $('button[data-id="' + id_siswa + '"]');
-                    var row = btn.closest('tr');
-                    var status_td = row.find('td:last-child');
-                    if (status == 2) {
-                        btn.removeClass('btn-belum').addClass('btn-sudah').text('Sudah Dikoreksi');
-                        status_td.text('Sudah Dikoreksi');
-                    } else {
-                        btn.removeClass('btn-sudah').addClass('btn-belum').text('Belum Dikoreksi');
-                        status_td.text('Belum Dikoreksi');
-                    }
-                }
+                // tampilkan pesan sukses atau perbarui status ujian pada tampilan
+            },
+            error: function(xhr, status, error) {
+                // tampilkan pesan error jika terjadi kesalahan
             }
         });
     }
 </script>
+
 
 
 

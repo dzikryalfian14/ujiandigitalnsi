@@ -53,3 +53,4 @@ $route['default_controller'] = 'auth/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['koreksi_essay/koreksi_siswa'] = 'koreksi_essay/koreksi_siswa';
+$route['koreksi_essay/update_status_koreksi'] = 'koreksi_essay/update_status_koreksi';

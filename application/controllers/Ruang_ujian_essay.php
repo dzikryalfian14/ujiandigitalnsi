@@ -43,7 +43,7 @@ class Ruang_ujian_essay extends CI_Controller
                 'jawaban' => $jawaban[$id_soal[$i]]
             );
         }
-        $this->db->insert_batch('tb_jawaban_essay', $data);
+        $this->db->insert_batch('tb_jawaban_essay', $data); 
 
 
 

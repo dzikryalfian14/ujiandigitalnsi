@@ -37,6 +37,8 @@ $this->load->view('admin/sidebar');
                         <div class="form-group">
                             <label class="col-sm-2 control-label"></label>
                             <div class="col-sm-10">
+                                <a href="<?php echo base_url('koreksi_essay/kembali'); ?>" class="btn btn-default btn-flat"><span class="fa fa-arrow-left"></span> Kembali</a>
+
                                 <a href="<?= base_url('koreksi_essay'); ?>" class="btn btn-default btn-flat"><span class="fa fa-refresh"></span> Refresh</a>
                                 <button type="submit" class="btn btn-primary btn-flat" title="Filter Data Soal Ujian"><span class="fa fa-filter"></span> Filter</button>
                             </div>
@@ -44,6 +46,7 @@ $this->load->view('admin/sidebar');
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
+
 
                     </div>
                     <!-- /.box-footer -->
@@ -53,6 +56,7 @@ $this->load->view('admin/sidebar');
 
             <!-- Default box -->
             <div class="box box-success" style="overflow-x: scroll;">
+
 
                 <div class="box-body">
                     <table id="data" class="table table-bordered table-striped">
