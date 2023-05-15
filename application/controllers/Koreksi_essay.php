@@ -16,6 +16,7 @@ class koreksi_essay extends CI_Controller
 
     public function index()
     {
+        
 
         $id_siswa = $this->input->get('id_siswa');
         $nama_mapel = $this->input->get('nama_mapel');
@@ -27,8 +28,7 @@ class koreksi_essay extends CI_Controller
         // ambil data jawaban essay
         $data['jawaban'] = $this->M_koreksi_essay->get_data1();
 
-        // ambil data kelas
-        // $data['kelas'] = $this->m_data->get_data('tb_mapel_essay')->result();
+ 
 
 
         // // ambil data jawaban peserta dan soal
@@ -75,54 +75,29 @@ class koreksi_essay extends CI_Controller
     {
         // Ambil id peserta dari query string
         $id_peserta_essay = $this->input->get('id_peserta_essay');
-    
-        // Buat data baru untuk di-update
+
+        // // Buat data baru untuk di-update
         $data = array(
             'status_koreksi' => 1
         );
-    
-        // Panggil model M_koreksi_essay dan gunakan method update_data
-        $this->load->model('M_koreksi_essay');
+
+        // // Panggil model M_koreksi_essay dan gunakan method update_data
         $this->M_koreksi_essay->update_data($id_peserta_essay, $data);
-    
+
+        // // Cek apakah update berhasil
+        $row = $this->M_koreksi_essay->get_data_by_id($id_peserta_essay);
+
+        if ($row->status_koreksi == 1) {
+            $message = "Status koreksi berhasil diubah menjadi Sudah Dikoreksi.";
+        } else {
+            $message = "Status koreksi gagal diubah.";
+        }
+
+        $this->session->set_flashdata('message', $message);
+
+
         // Redirect ke halaman koreksi_peserta_essay
         redirect('koreksi_peserta_essay');
     }
-    
 
-    // public function detail_jawaban($id_soal)
-    // {
-    //     // Ambil data soal
-    //     $data['soal'] = $this->M_koreksi_essay->get_data_soal2($id_soal);
-
-    //     // Ambil data jawaban yang sama dengan ID soal
-    //     $data['jawaban'] = $this->M_koreksi_essay->get_jawaban_by_id_soal($id_soal);
-
-    //     // Tampilkan data ke view
-    //     $this->load->view('detail_jawaban', $data);
-    // }
-
-
-
-    // public function nilai_aksi()
-    // {
-    //     $nilai         = $this->input->post('nilai');
-
-    //     $data = array(
-    //         'nilai_essay' => $nilai
-    //     );
-    //     $this->m_data->insert_data($data, 'tb_peserta_essay');
-    //     $this->session->set_flashdata('message', '<div class="alert alert-success alert-message"><i class="icon fa fa-check"></i><b>Selamat !<br></b> Anda telah berhasil menambahkan data Mata Pelajaran</div>');
-    //     redirect(base_url('koreksi_essay'));
-    // }
-
-    // public function update_status_koreksi()
-    // {
-    //     $id_siswa = $this->input->get('id_siswa');
-    //     $nama_mapel = $this->input->get('nama_mapel');
-
-    //     $this->M_koreksi_essay->update_status_koreksi_by_id_siswa($id_siswa, $nama_mapel);
-
-    //     redirect('koreksi_essay'); 
-    // }
 }

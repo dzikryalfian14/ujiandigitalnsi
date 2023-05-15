@@ -90,13 +90,15 @@ $this->load->view('admin/sidebar');
                                     <textarea class="summernote" rows="20" style="width: 100%" name="soal" required></textarea>
                                 </div>
                             </div>
-                            <!-- tambahkan input untuk gambar -->
+
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Upload Gambar</label>
+                                <label class="col-sm-2 control-label">Gambar</label>
                                 <div class="col-sm-10">
                                     <input type="file" name="gambar">
                                 </div>
                             </div>
+
+
                             <!-- masukkan bobot soal -->
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Bobot Soal</label>

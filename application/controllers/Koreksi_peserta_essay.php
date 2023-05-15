@@ -20,63 +20,47 @@ class Koreksi_peserta_essay extends CI_Controller
         $data['jawaban'] = $this->M_koreksi_essay->get_data1();
 
 
-
-
-
-
-
-
-        // $id_siswa = $this->input->get('id_siswa');
-        // $nama_mapel = $this->input->get('nama_mapel');
-        // $data['jawaban'] = $this->M_koreksi_essay->get_data1_by_id_siswa($id_siswa);
-
-        // $data['status_korekss']
-
-        // $data = array(
-
-        //     'status_koreksi' => 1,
-        // );
-
-
-
-        // Jika form di-submit, simpan status koreksi ke dalam database
-
-        // $status_koreksi = $this->input->post('status_koreksi');
-        // $id_jawaban = $this->input->post('id_jawaban');
-
-        // $data = array();
-
-        // $this->db->insert_batch('tb_peserta_essay', $data);
-
-        // $data = array(
-
-        //     'status_koreksi' => 1,
-
-        // );
-        // $this->M_koreksi_essay->update_status_koreksi($id_jawaban, $status_koreksi);
-        // redirect(base_url('koreksi_peserta_essay'));
-
-
-        // if ($this->input->get('id_siswa') && $this->input->get('nama_mapel')) {
-        //     $id_siswa = $this->input->get('id_siswa');
-        //     $nama_mapel = $this->input->get('nama_mapel');
-
-        //     $this->M_koreksi_essay->update_status_koreksi_by_id_siswa($id_siswa, $nama_mapel);
-        // }
-
-
         $this->load->view('admin/v_koreksi_peserta_essay', $data);
     }
 
-    // public function status_koreksi()
-    // {
-    //     $data = array(
+    public function ubah_status_koreksi()
+    {
+        $id_peserta_essay = $this->input->post('id_peserta_essay');
+        $status_koreksi = $this->input->post('status_koreksi');
+        $data = array(
+            'status_koreksi' => 1
+        );
+        $this->M_koreksi_essay->update_status_koreksi($id_peserta_essay, $data);
+        redirect('koreksi_peserta_essay');
+    }
 
-    //         'status_koreksi' => 1,
+    public function kembali()
+    {
+        // Ambil id peserta dari query string
+        $id_peserta_essay = $this->input->get('id_peserta_essay');
 
-    //     );
-    //     $this->m_data->UpdateNilaiEssay2($id_peserta, $data);
-    //     // gunakan UpdateNilai dari model m_data untuk mengupdate data pada tabel tb_jawaban_essay
-    //     redirect(base_url('koreksi_peserta_essay'));
-    // }
+
+        // Buat data baru untuk di-update
+        $data = array(
+            'status_koreksi' => 1
+        );
+
+        // Panggil model M_koreksi_essay dan gunakan method update_data
+        $this->M_koreksi_essay->update_data($id_peserta_essay, $data);
+
+        // Cek apakah update berhasil
+        $row = $this->M_koreksi_essay->get_data_by_id($id_peserta_essay);
+
+        if ($row->status_koreksi == 1) {
+            $message = "Status koreksi berhasil diubah menjadi Sudah Dikoreksi.";
+        } else {
+            $message = "Status koreksi gagal diubah.";
+        }
+
+        $this->session->set_flashdata('message', $message);
+
+
+        // Redirect ke halaman koreksi_peserta_essay
+        redirect('koreksi_peserta_essay');
+    }
 }

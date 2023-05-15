@@ -25,7 +25,6 @@ $this->load->view('admin/sidebar');
                 </div>
             </div>
 
-
             <!-- Default box -->
             <div class="box box-success" style="overflow-x: scroll;">
 
@@ -38,6 +37,7 @@ $this->load->view('admin/sidebar');
                                 <th>Nama Ujian</th>
                                 <th>Koreksi Ujian</th>
                                 <th>Status Koreksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
@@ -61,14 +61,19 @@ $this->load->view('admin/sidebar');
                                         }
                                         ?>
                                     </td>
-
+                                    <td>
+                                        <form method="post" action="<?php echo base_url('koreksi_peserta_essay/ubah_status_koreksi'); ?>">
+                                            <input type="hidden" name="id_peserta_essay" value="<?php echo $row->id_peserta_essay; ?>">
+                                            <select name="status_koreksi" onchange="this.form.submit()">
+                                                <option value="0" <?php if ($row->status_koreksi == 0) echo "selected"; ?>>Belum Dikoreksi</option>
+                                                <option value="1" <?php if ($row->status_koreksi == 1) echo "selected"; ?>>Sudah Dikoreksi</option>
+                                            </select>
+                                        </form>
+                                    </td>
                                 </tr>
                             <?php } ?>
                         </tbody>
                     </table>
-
-
-
                 </div>
             </div>
             <!-- /.col-->

@@ -52,27 +52,6 @@ class Essay_ujian extends CI_Controller
         redirect(base_url('essay_ujian'));
     }
 
-    // public function update()
-    // {
-    //     $id = $this->input->post('id_soal_essay');
-    //     $nama_mapel_essay = $this->input->post('nama_mapel_essay');
-    //     $pertanyaan = $this->input->post('pertanyaan');
-    //     $jawaban = $this->input->post('jawaban');
-
-    //     $where = array('id_soal_essay' => $id);
-    //     $data = array(
-    //         'kode_mapel_essay' => $nama_mapel_essay,
-    //         'pertanyaan' => $pertanyaan,
-    //         'jawaban' => $jawaban
-    //     );
-
-    //     $this->m_data->update_data($where, $data, 'tb_soal_essay');
-
-    //     $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-check"></i> Selamat, Soal telah berhasil diupdate!</h4></div>');
-
-    //     redirect(base_url('essay_ujian'));
-    // }
-
 
     public function hapus($id)
     {
