@@ -83,12 +83,8 @@ $this->load->view('admin/sidebar');
                                 <td>
                                     <?php
                                     echo $d->pertanyaan;
-                                    preg_match_all('/data:image\/([a-zA-Z]+);base64,([^\s"]+)/i', $d->pertanyaan, $matches);
-                                    foreach ($matches[0] as $key => $match) {
-                                        $image_data = base64_decode($matches[2][$key]);
-                                        $image_type = $matches[1][$key];
-                                        $image_src = 'data:image/' . $image_type . ';base64,' . base64_encode($image_data);
-                                        echo '<br><img src="' . $image_src . '" width="200">';
+                                    if (!empty($d->gambar)) {
+                                        echo '<br><img src="' . base_url($d->gambar) . '" width="200">';
                                     }
                                     ?>
                                 </td>

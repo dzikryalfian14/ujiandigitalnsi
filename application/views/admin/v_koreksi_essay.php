@@ -75,7 +75,7 @@ $this->load->view('admin/sidebar');
                                     <td><?php echo $no++; ?></td>
                                     <td><?php echo $row->nama_siswa; ?></td>
                                     <td><?php echo $row->pertanyaan; ?></td>
-                                    <td><?php echo $row->jawaban; ?></td>
+                                    <td><?php echo $row->jawaban; ?></td>   
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

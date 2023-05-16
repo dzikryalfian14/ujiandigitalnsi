@@ -16,7 +16,7 @@ $this->load->view('admin/sidebar');
             <?php foreach ($essay as $s) { ?>
                 <!-- TUTUP Tampilan untuk alert -->
                 <div class="box box-success" style="overflow-x: scroll;">
-                    <form action="<?= base_url('essay_ujian/update'); ?>" method="post">
+                    <form action="<?= base_url('essay_ujian/update'); ?>" method="post" enctype="multipart/form-data">
                         <div class="box-header">
                             <center>
                                 <h4 class="box-title">Edit Data</h4>
@@ -45,6 +45,23 @@ $this->load->view('admin/sidebar');
                                         <textarea name="pertanyaan" class="summernote" rows="10" style="width: 100%" required><?= $s->pertanyaan; ?></textarea>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Gambar</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" name="gambar"> <b>select choosed file untuk mengganti!</b> <br> <b>Format Gambar harus .png dan .jpg!</b>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Gambar Sebelumnya</label>
+                                    <div class="col-sm-10">
+                                        <?php if (!empty($s->gambar)) { ?>
+                                            <img src="<?= base_url($s->gambar); ?>" alt="Gambar" style="max-width: 200px;" >
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
                                 <!-- masukkan jawaban -->
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Bobot Soal</label>

@@ -34,33 +34,33 @@ class Koreksi_peserta_essay extends CI_Controller
         redirect('koreksi_peserta_essay');
     }
 
-    public function kembali()
-    {
-        // Ambil id peserta dari query string
-        $id_peserta_essay = $this->input->get('id_peserta_essay');
+    // public function kembali()
+    // {
+    //     // Ambil id peserta dari query string
+    //     $id_peserta_essay = $this->input->get('id_peserta_essay');
 
 
-        // Buat data baru untuk di-update
-        $data = array(
-            'status_koreksi' => 1
-        );
+    //     // Buat data baru untuk di-update
+    //     $data = array(
+    //         'status_koreksi' => 1
+    //     );
 
-        // Panggil model M_koreksi_essay dan gunakan method update_data
-        $this->M_koreksi_essay->update_data($id_peserta_essay, $data);
+    //     // Panggil model M_koreksi_essay dan gunakan method update_data
+    //     $this->M_koreksi_essay->update_data($id_peserta_essay, $data);
 
-        // Cek apakah update berhasil
-        $row = $this->M_koreksi_essay->get_data_by_id($id_peserta_essay);
+    //     // Cek apakah update berhasil
+    //     $row = $this->M_koreksi_essay->get_data_by_id($id_peserta_essay);
 
-        if ($row->status_koreksi == 1) {
-            $message = "Status koreksi berhasil diubah menjadi Sudah Dikoreksi.";
-        } else {
-            $message = "Status koreksi gagal diubah.";
-        }
+    //     if ($row->status_koreksi == 1) {
+    //         $message = "Status koreksi berhasil diubah menjadi Sudah Dikoreksi.";
+    //     } else {
+    //         $message = "Status koreksi gagal diubah.";
+    //     }
 
-        $this->session->set_flashdata('message', $message);
+    //     $this->session->set_flashdata('message', $message);
 
 
-        // Redirect ke halaman koreksi_peserta_essay
-        redirect('koreksi_peserta_essay');
-    }
+    //     // Redirect ke halaman koreksi_peserta_essay
+    //     redirect('koreksi_peserta_essay');
+    // }
 }

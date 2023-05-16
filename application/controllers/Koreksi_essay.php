@@ -16,7 +16,7 @@ class koreksi_essay extends CI_Controller
 
     public function index()
     {
-        
+
 
         $id_siswa = $this->input->get('id_siswa');
         $nama_mapel = $this->input->get('nama_mapel');
@@ -28,7 +28,7 @@ class koreksi_essay extends CI_Controller
         // ambil data jawaban essay
         $data['jawaban'] = $this->M_koreksi_essay->get_data1();
 
- 
+
 
 
         // // ambil data jawaban peserta dan soal
@@ -90,7 +90,7 @@ class koreksi_essay extends CI_Controller
         if ($row->status_koreksi == 1) {
             $message = "Status koreksi berhasil diubah menjadi Sudah Dikoreksi.";
         } else {
-            $message = "Status koreksi gagal diubah.";
+            $message = ".";
         }
 
         $this->session->set_flashdata('message', $message);
@@ -99,5 +99,4 @@ class koreksi_essay extends CI_Controller
         // Redirect ke halaman koreksi_peserta_essay
         redirect('koreksi_peserta_essay');
     }
-
 }

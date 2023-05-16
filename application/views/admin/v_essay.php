@@ -20,7 +20,6 @@ $this->load->view('admin/sidebar');
                 <div class="box-header">
 
 
-
                     <!-- /. modal  -->
                     <div class="modal fade" id="modal-default">
                         <div class="modal-dialog">
@@ -59,14 +58,12 @@ $this->load->view('admin/sidebar');
                     <!-- /.modal -->
 
 
-
-
                     <center>
                         <div class="box-title">Tambah Soal Essay</div>
                     </center>
 
                 </div><!-- /.box-header -->
-                <form action="<?= base_url('essay/insert'); ?>" method="post">
+                <form action="<?= base_url('essay/insert'); ?>" method="post" enctype="multipart/form-data">
                     <div class="box-body">
 
                         <div class="form-horizontal">
@@ -94,10 +91,9 @@ $this->load->view('admin/sidebar');
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Gambar</label>
                                 <div class="col-sm-10">
-                                    <input type="file" name="gambar">
+                                    <input type="file" name="gambar" ><b>Format Gambar harus .png dan .jpg!</b>
                                 </div>
                             </div>
-
 
                             <!-- masukkan bobot soal -->
                             <div class="form-group">
@@ -106,6 +102,7 @@ $this->load->view('admin/sidebar');
                                     <textarea rows="1" style="width: 10%" name="kunci" required></textarea>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -151,8 +148,6 @@ $this->load->view('admin/js');
 
 <!-- summernote JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.js"></script>
-
-
 
 
 <?php

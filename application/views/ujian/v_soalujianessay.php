@@ -71,11 +71,16 @@ if (isset($_SESSION["waktu_start"])) {
                                         <tbody>
                                             <tr>
                                                 <td width="1%"><?php echo $no; ?>.</td>
-                                                <td><?php echo $s->pertanyaan; ?>
+                                                <td>
+                                                    <?php echo $s->pertanyaan; ?>
+                                                    <?php if (!empty($s->gambar)) : ?>
+                                                        <br>
+                                                        <img src="<?php echo base_url($s->gambar); ?>" width="200">
+                                                        <br>
+                                                    <?php endif; ?>
                                                     <input type='hidden' name='soal[]' value='<?php echo $s->id_soal_essay; ?>' />
                                                     <br>
                                                     <textarea rows="5" style="width: 95%; resize: none; overflow: auto;" type="text" name="jawaban[<?php echo $s->id_soal_essay; ?>]" required placeholder="Masukkan jawaban anda!"></textarea>
-
                                                     <br> Bobot soal = <?php echo $s->jawaban; ?>
                                                     <br>
                                                 </td>

@@ -36,9 +36,9 @@ $this->load->view('admin/sidebar');
                         di TAB Penguji dan Peserta, anda dapat mengelola soal sesuai dengan data yang di daftarkan untuk berganti session silahkan login dengan username dan password yang sudah dibuat.
                         <br>
                         <li><b>Hasil Ujian</b></li>
-                        Hasil Ujian dapat dicetak dalam bentuk pdf. untuk beberapa fungsi soal uraian dan soal lainnya masih dalam perbaikan <alert>beberapa fungsi masih dalam perbaikan</alert>
+                        Hasil Ujian dapat dicetak dalam bentuk pdf. untuk beberapa fungsi soal URAIAN dan soal PILIHAN GANDA masih dalam perbaikan.
                         <li><b>Penting</b></li>
-                        Aplikasi ini masih dalam tahap perkembangan untuk memaksimalkan penggunaan silahkan baca Work Intruction yang disediakan developer. Beberapa fungsi masih belum berjalan normal, Jika ada masalah dalam beberapa fungsi Silahkan menghubungi developer.<br>
+                        Aplikasi ini masih dalam tahap perkembangan untuk memaksimalkan penggunaan silahkan baca Work Intruction yang disediakan developer. Beberapa fungsi masih belum berjalan normal, Jika ada masalah dalam beberapa fungsi Silahkan menghubungi developer di ig @dzikryaal_ jangan lupa follow hehe.<br>
                         <li><b>Perhatian</b></li>
                         <b>DILARANG KERAS MENGGANTI PASSWORD ADMIN</b> password digunakan untuk kepentingan beberapa bug aplikasi kedepan terima kasih.<br>
                         <br>
