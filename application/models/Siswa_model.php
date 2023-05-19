@@ -25,7 +25,7 @@ class Siswa_model extends CI_Model
 
     public function delete_siswa($id_siswa)
     {
-        return $this->db->delete('tb_
+        return $this->db->delete('tb_siswa)
         siswa', array('id_siswa' => $id_siswa));
     }
 }

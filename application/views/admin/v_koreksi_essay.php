@@ -21,15 +21,15 @@ $this->load->view('admin/sidebar');
                         <h4 class="box-title">Koreksi Ujian Essay</h4>
                     </center>
                 </div>
-                <form action="" method="get" class="form-horizontal">
+                <form action="<?= base_url('koreksi_essay'); ?>" method="get" class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Soal Ujian</label>
+                            <label class="col-sm-2 control-label">Peserta Ujian</label>
                             <div class="col-sm-10">
                                 <select class="select2 form-control" name="id" required="">
-                                    <option selected="selected" disabled="">- Pilih Soal Ujian -</option>
-                                    <?php foreach ($soal as $a) { ?>
-                                        <option value="<?= $a->id_mapel_essay ?>"><?= $a->id_soal_essay; ?> | <?= $a->pertanyaan; ?></option>
+                                    <option selected="selected" disabled="">- Pilih Peserta Ujian -</option>
+                                    <?php foreach ($peserta as $s) { ?>
+                                        <option value="<?= $s->id_siswa; ?>"><?= $s->nama_siswa; ?> | <?= $s->nama_mapel_essay; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -37,9 +37,9 @@ $this->load->view('admin/sidebar');
                         <div class="form-group">
                             <label class="col-sm-2 control-label"></label>
                             <div class="col-sm-10">
-                                <a href="<?php echo base_url('koreksi_essay/kembali'); ?>" class="btn btn-default btn-flat"><span class="fa fa-arrow-left"></span> Kembali</a>
+                                <a href="<?php echo base_url('koreksi_peserta_essay'); ?>" class="btn btn-default btn-flat"><span class="fa fa-arrow-left"></span> Kembali</a>
 
-                                <a href="<?= base_url('koreksi_essay'); ?>" class="btn btn-default btn-flat"><span class="fa fa-refresh"></span> Refresh</a>
+                                <a href="<?= base_url(uri_string()); ?>" class="btn btn-default btn-flat"><span class="fa fa-refresh"></span> Refresh</a>
                                 <button type="submit" class="btn btn-primary btn-flat" title="Filter Data Soal Ujian"><span class="fa fa-filter"></span> Filter</button>
                             </div>
                         </div>
@@ -53,10 +53,10 @@ $this->load->view('admin/sidebar');
                 </form>
 
             </div>
+         
 
             <!-- Default box -->
             <div class="box box-success" style="overflow-x: scroll;">
-
 
                 <div class="box-body">
                     <table id="data" class="table table-bordered table-striped">
@@ -75,7 +75,7 @@ $this->load->view('admin/sidebar');
                                     <td><?php echo $no++; ?></td>
                                     <td><?php echo $row->nama_siswa; ?></td>
                                     <td><?php echo $row->pertanyaan; ?></td>
-                                    <td><?php echo $row->jawaban; ?></td>   
+                                    <td><?php echo $row->jawaban; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -85,8 +85,8 @@ $this->load->view('admin/sidebar');
             <!-- /.col-->
         </div>
         <!-- ./row -->
+    </div>
 </section><!-- /.content -->
-
 
 <?php
 $this->load->view('admin/js');

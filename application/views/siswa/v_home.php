@@ -33,14 +33,15 @@ $this->load->view('siswa/sidebar');
                         di TAB Jadwal Ujian, terdapat jadwal ujian yang telah didaftarkan oleh admin sebagai peserta ujian bahwa anda berhak melaksanakan ujian. Apabila di ruang tersebut tidak tersedia jadwal ujian silahkan hubungin admin untuk mendapatkan informasi lebih lanjut
                         selanjutnya, ketika anda sudah memiliki waktu ujian, silahkan anda klik tombol <b>Mulai</b> yang tersedia ketika waktu telah menunjukan mulainya waktu ujian.
                         <li><b>Hasil Ujian</b></li>
-                        di TAB Hasil Ujian, anda dapat melihat hasil ujian yang telah anda lakukan di Ruang Jadwal Ujian, Hasil ini dapat dilihat langsung apabila soal berupa PILIHAN GANDA, apabila soal tersebut soal essay Fungsi tidak bekerja.
+                        di TAB Hasil Ujian, anda dapat melihat hasil ujian yang telah anda lakukan di Ruang Jadwal Ujian, Hasil ini dapat dilihat langsung apabila soal berupa <b>Pilihan Ganda</b>, apabila soal tersebut soal <b>Essay</b> Fungsi tidak bekerja.
                         <li><b>Ganti Password</b></li>
                         di TAB Ganti Password, anda dapat mengganti password sesuai keinginan anda setelah anda mendapatkan password default dari pihak admin. ketika anda lupa password, anda dapat menghubungi pihak admin agar mendapatkan password terbaru.
-                    </ol>
+                        <li><b>PERHATIAN</b></li>
+                        Jangan lupa berdoa sebelum mengerjakan soal, kerjakan secara hati-hati dan teliti apabila ada error silahkan hubungi pengawas ujian pastikan anda memasukkan data dengan benar, <B>GOOD LUCK!</B>
                 </dd>
             </dl>
         </div><!-- /.box-body -->
-    </div>
+        
 
 </section><!-- /.content -->
 

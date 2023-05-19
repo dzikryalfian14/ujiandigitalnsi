@@ -88,6 +88,10 @@ $this->load->view('siswa/js');
 ?>
 <!--tambahkan custom js disini-->
 <script type="text/javascript">
+    $(function() {
+        $('#data').dataTable();
+    });
+
     $('.alert-message').alert().delay(3000).slideUp('slow');
 </script>
 

@@ -7,7 +7,7 @@
       <nav class="navbar navbar-static-top">
         <div class="container">
           <div class="navbar-header">
-            <a href="#" class="navbar-brand"><b>Ujian Nihon Seiki</b></a>
+            <a href="#" class="navbar-brand"><b>UJIAN MASUK NIHON SEIKI INDONESIA</b></a>
           </div>
           <!-- /.navbar-collapse -->
           <!-- Navbar Right Menu -->

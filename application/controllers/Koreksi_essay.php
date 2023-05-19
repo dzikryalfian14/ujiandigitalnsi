@@ -38,6 +38,7 @@ class koreksi_essay extends CI_Controller
         $data['soal'] = $this->M_koreksi_essay->get_data_soal();
 
         $data['daftar_soal'] = $this->M_koreksi_essay->get_data_soal();
+        $data['siswa'] = $this->m_data->get_data('tb_siswa')->result();
 
 
         //ambil data soal
@@ -45,25 +46,11 @@ class koreksi_essay extends CI_Controller
             $id_mapel = $this->input->get('id');
             // $data['soal'] = $this->M_koreksi_essay->get_soal_by_id_mapel($id_mapel);
             $data['kelas'] = $this->m_data->get_data('tb_mapel_essay')->result();
+           
         } else {
             $data['soal'] = $this->M_koreksi_essay->get_data_soal1();
-            $data['kelas'] = $this->m_data->get_data('tb_mapel_essay')->result();
+            // $data['kelas'] = $this->m_data->get_data('tb_mapel_essay')->result();
         }
-
-        // ambil data nama ujian
-        // if (isset($_GET['id'])) {
-        //     $id_mapel = $this->input->get('id');
-        //     $data['mapel'] = $this->M_koreksi_essay->get_mapel_by_id($id);
-        //     $data['kelas'] = $this->m_data->get_data('tb_mapel_essay')->result();
-        // } else {
-        //     $data['mapel_essay'] = $this->M_koreksi_essay->get_mapel_essay();
-        //     $data['kelas'] = $this->m_data->get_data('tb_mapel_essay')->result();
-        // }
-
-        // // ambil data soal dan jawaban
-        // $id_peserta = 1; // ganti dengan id peserta yang diinginkan
-        // $data['soal_jawaban'] = $this->M_koreksi_essay->get_soal_jawaban_by_id_peserta($id_peserta);
-        // $data['kelas'] = $this->m_data->get_data('tb_mapel_essay')->result();
 
 
 

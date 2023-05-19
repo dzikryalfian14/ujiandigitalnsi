@@ -38,7 +38,7 @@ $this->load->view('admin/sidebar');
                         <li><b>Hasil Ujian</b></li>
                         Hasil Ujian dapat dicetak dalam bentuk pdf. untuk beberapa fungsi soal URAIAN dan soal PILIHAN GANDA masih dalam perbaikan.
                         <li><b>Penting</b></li>
-                        Aplikasi ini masih dalam tahap perkembangan untuk memaksimalkan penggunaan silahkan baca Work Intruction yang disediakan developer. Beberapa fungsi masih belum berjalan normal, Jika ada masalah dalam beberapa fungsi Silahkan menghubungi developer di ig @dzikryaal_ jangan lupa follow hehe.<br>
+                        Aplikasi ini masih dalam tahap perkembangan untuk memaksimalkan penggunaan silahkan baca Work Intruction yang disediakan developer. Beberapa fungsi masih belum berjalan normal, Jika ada masalah dalam beberapa fungsi Silahkan menghubungi Developer<br>
                         <li><b>Perhatian</b></li>
                         <b>DILARANG KERAS MENGGANTI PASSWORD ADMIN</b> password digunakan untuk kepentingan beberapa bug aplikasi kedepan terima kasih.<br>
                         <br>

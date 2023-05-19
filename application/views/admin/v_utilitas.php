@@ -21,7 +21,7 @@ $this->load->view('admin/sidebar');
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#tab_1" data-toggle="tab">Backup Database</a></li>
-          <li><a href="#tab_2" data-toggle="tab">Reset Database</a></li>
+          <li><a href="#tab_2" data-toggle="tab">Reset Database (Data Peserta Ujian) </a></li>
           <li><a href="#tab_3" data-toggle="tab">Restore Database</a></li>
         </ul>
         <div class="tab-content">

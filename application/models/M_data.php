@@ -184,9 +184,6 @@ class M_data extends CI_Model
 		return $query->result();
 	}
 
-
-
-
 	public function importguru($data = array())
 	{
 		$jumlah = count($data);
