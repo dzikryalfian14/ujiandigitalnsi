@@ -32,7 +32,7 @@ $this->load->view('admin/sidebar');
                                         <option value="<?= $s->id_siswa; ?>"><?= $s->nama_siswa; ?> | <?= $s->nama_mapel_essay; ?></option>
                                     <?php } ?>
                                 </select>
-                            </div>
+                            </div>  
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label"></label>
@@ -48,38 +48,49 @@ $this->load->view('admin/sidebar');
                     <div class="box-footer">
 
 
+
                     </div>
                     <!-- /.box-footer -->
                 </form>
 
             </div>
-         
+
 
             <!-- Default box -->
             <div class="box box-success" style="overflow-x: scroll;">
 
                 <div class="box-body">
-                    <table id="data" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th width="1%">No</th>
-                                <th>Peserta</th>
-                                <th>Pertanyaan</th>
-                                <th>Jawaban</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no = 1;
-                            foreach ($jawaban_peserta_soal as $row) : ?>
+                    <form action="<?php echo base_url('Koreksi_essay/simpan_nilai'); ?>" method="post">
+                        <table id="data" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td><?php echo $no++; ?></td>
-                                    <td><?php echo $row->nama_siswa; ?></td>
-                                    <td><?php echo $row->pertanyaan; ?></td>
-                                    <td><?php echo $row->jawaban; ?></td>
+                                    <th width="1%">No</th>
+                                    <th>Peserta</th>
+                                    <th>Pertanyaan</th>
+                                    <th>Jawaban</th>
+                                    <th>Nilai</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1;
+                                foreach ($jawaban_peserta_soal as $row) : ?>
+                                    <tr>
+                                        <td><?php echo $no++; ?></td>
+                                        <td><?php echo $row->nama_siswa; ?></td>
+                                        <td><?php echo $row->pertanyaan; ?></td>
+                                        <td><?php echo $row->jawaban; ?></td>
+                                        <td>
+                                            <input type="number" name="nilai[<?php echo $row->id_jawaban_essay; ?>]" class="form-control" min="0" max="100" step="1" value="<?php echo $row->nilai; ?>">
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                    <!-- Tampilkan total nilai -->
+                    <p>Total nilai: <?php echo $this->session->flashdata('total_nilai') ?? 0; ?></p>
+
                 </div>
             </div>
             <!-- /.col-->

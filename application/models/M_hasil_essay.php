@@ -63,4 +63,13 @@ class M_hasil_essay extends CI_Model
         $this->db->where('id_peserta_essay', $id_peserta_essay);
         $this->db->update('tb_hasil_essay', $data);
     }
+
+    public function get_total_nilai_per_peserta($id_peserta)
+    {
+        $this->db->select_sum('nilai');
+        $this->db->where('id_peserta_essay', $id_peserta);
+        $query = $this->db->get('tb_jawaban_essay');
+
+        return $query->row()->nilai;
+    }
 }

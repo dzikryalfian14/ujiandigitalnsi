@@ -219,4 +219,9 @@ class M_data extends CI_Model
 		$this->db->insert_batch('tb_peserta_essay', $entri);
 		return true;
 	}
+
+	public function truncate_table($tb_siswa)
+	{
+		$this->db->truncate($tb_siswa);
+	}
 }

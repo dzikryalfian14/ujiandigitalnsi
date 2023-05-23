@@ -31,9 +31,19 @@ $this->load->view('admin/sidebar');
 
           <a href="<?php echo base_url('kelas'); ?>"><button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#"><span></span>Data Ruangan</button></a>
 
+          <?php echo '<button type="button" class="btn btn-danger btn-flat" onclick="return confirm(\'Apakah yakin semua data peserta ini dihapus?\') && $.get(\'' . base_url('siswa/hapusall') . '\', function(data) { location.reload(); })"><span class="fa fa-trash"></span> Hapus Semua Data</button>' ?>
+
+
+
 
         </div>
         <!-- /.box-header -->
+        <div class="box-header">
+          <a href="<?= base_url('cetak_siswa/print_all') ?>" class="btn btn-primary btn-flat pull-right" target="_blank"><i class="fa fa-print"></i> Cetak Pendaftar Ujian</a>
+
+          <!-- insert nilai -->
+
+        </div>
 
         <div class="box-body">
           <table id="data" class="table table-bordered table-striped">
@@ -122,10 +132,8 @@ $this->load->view('admin/sidebar');
       <!-- /.form dengan modal -->
       <div class="modal-body">
         <div id="modal-data-body">
-
-
           <!-- /.form dengan modal -->
-          <form action="<?= base_url('siswa/import'); ?>" method="post" class="form-horizontal">
+          <form action="<?= base_url('siswa/import'); ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
             <div class="box-body">
               <div class="form-group">
                 <div class="col-sm-12">
@@ -135,7 +143,7 @@ $this->load->view('admin/sidebar');
               <div class="form-group">
                 <label class="col-sm-2 control-label">File</label>
                 <div class="col-sm-10">
-                  <input type="file" name="file" required accept=".xls, .xlsx, .csv">
+                  <input type="file" name="excel_file" required accept=".xls, .xlsx, .csv">
                   <p class="help-block">File harus bertipe <b>.xls, .xlsx</p>
                 </div>
               </div>
@@ -159,8 +167,6 @@ $this->load->view('admin/sidebar');
             <!-- /.box-footer -->
           </form>
           <!-- /.tutup form dengan modal  -->
-
-
         </div>
       </div>
     </div>
@@ -169,6 +175,7 @@ $this->load->view('admin/sidebar');
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
 
 
 

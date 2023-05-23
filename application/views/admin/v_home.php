@@ -31,7 +31,7 @@ $this->load->view('admin/sidebar');
                     <ol><br>
                         <li><b>Kelola Soal Ujian</b></li>
                         Terdapat beberapa tab yang digunakan untuk mengelola beberapa peserta ujian serta soal ujian. silahkan download <b>Work Intruction</b> pada link berikut
-                        <a href="nama-file.pdf" download style="text-align: right;">Download PDF</a>
+                        <a href="<?= base_url('assets/word/WorkIntruction.docx')?>" download style="text-align: right;">Download PDF</a>
                         <li><b>Penguji dan Peserta</b></li>
                         di TAB Penguji dan Peserta, anda dapat mengelola soal sesuai dengan data yang di daftarkan untuk berganti session silahkan login dengan username dan password yang sudah dibuat.
                         <br>
@@ -42,9 +42,7 @@ $this->load->view('admin/sidebar');
                         <li><b>Perhatian</b></li>
                         <b>DILARANG KERAS MENGGANTI PASSWORD ADMIN</b> password digunakan untuk kepentingan beberapa bug aplikasi kedepan terima kasih.<br>
                         <br>
-                        <br>
-
-                        <a href="nama-file.pdf" download style="text-align: right;">Download PDF Work Instruction</a>
+                        <a href="WorkIntruction.pdf" download style="text-align: right;">Download PDF Work Instruction</a>
 
                     </ol>
                 </dd>

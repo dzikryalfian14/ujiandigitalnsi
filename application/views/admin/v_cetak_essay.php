@@ -31,7 +31,7 @@
                                 <tr>
                                     <th width="1%">No</th>
                                     <th>Nama Peserta</th>
-                                    <th>NIS</th>
+                                    <th>NIK</th>
                                     <th>Nama Ujian</th>
                                     <th width="20%">Tanggal Ujian</th>
                                     <th width="20%">Waktu Ujian</th>

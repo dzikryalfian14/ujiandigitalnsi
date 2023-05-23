@@ -50,7 +50,7 @@ class siswa extends CI_Controller
 			);
 
 			$this->m_data->insert_data($data, 'tb_siswa');
-			$this->session->set_flashdata('message', '<div class="alert alert-success alert-message"><i class="icon fa fa-check"></i><b>Selamat ! <br></b> Anda telah berhasil menambahkan data siswa</div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-success alert-message"><i class="icon fa fa-check"></i><b>Selamat ! <br></b> Anda telah berhasil menambahkan data peserta</div>');
 			redirect(base_url('siswa'));
 		} else {
 			$data['kelas'] = $this->m_data->get_data('tb_kelas')->result();
@@ -94,7 +94,7 @@ class siswa extends CI_Controller
 			);
 			$this->m_data->update_data($where, $data, 'tb_siswa');
 		}
-		$this->session->set_flashdata('message', '<div class="alert alert-success alert-message"><i class="icon fa fa-check"></i><b>Selamat ! <br></b> Anda telah berhasil mengupdate data siswa</div>');
+		$this->session->set_flashdata('message', '<div class="alert alert-success alert-message"><i class="icon fa fa-check"></i><b>Selamat ! <br></b> Anda telah berhasil mengupdate data peserta</div>');
 		redirect(base_url('siswa'));
 	}
 
@@ -104,54 +104,113 @@ class siswa extends CI_Controller
 			'id_siswa' => $id
 		);
 		$this->m_data->delete_data($where, 'tb_siswa');
-		$this->session->set_flashdata('message', '<div class="alert alert-danger alert-message"><i class="icon fa fa-check"></i><b>Selamat ! <br></b> Anda telah berhasil menghapus data siswa</div>');
+		$this->session->set_flashdata('message', '<div class="alert alert-danger alert-message"><i class="icon fa fa-check"></i><b>Selamat ! <br></b> Anda telah berhasil menghapus data peserta</div>');
 		redirect(base_url('siswa'));
 	}
 
+	public function hapusall()
+	{
+		$this->m_data->truncate_table('tb_siswa');
+		$this->session->set_flashdata('message', '<div class="alert alert-danger alert-message"><i class="icon fa fa-check"></i><b>Selamat ! <br></b> Anda telah berhasil menghapus semua data peserta</div>');
+		redirect(base_url('siswa'));
+	}
+
+
 	public function import()
 	{
-		if ($this->input->post('import')) {
-			$config['upload_path'] = './uploads/';
-			$config['allowed_types'] = 'xlsx|xls';
-			$config['max_size'] = '2048';
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'xlsx|xls';
+		$config['max_size'] = '2048';
 
-			$this->load->library('upload', $config);
+		$this->load->library('upload', $config);
 
-			// Memeriksa apakah file telah dipilih sebelum mengunggah
-			if (!$this->upload->do_upload('file')) {
-				$error = array('error' => $this->upload->display_errors());
-				$this->session->set_flashdata('message', '<div class="alert alert-danger">' . $this->upload->display_errors() . '</div>');
-				redirect('siswa');
-			} else {
-				// Proses import data
-				$file_data = $this->upload->data();
-				$inputFileName = './uploads/' . $file_data['file_name'];
+		// Check if a file has been selected before uploading
+		if (!$this->upload->do_upload('excel_file')) {
+			$error = array('error' => $this->upload->display_errors());
+			$this->session->set_flashdata('message', '<div class="alert alert-danger">' . $this->upload->display_errors() . '</div>');
+			redirect('siswa');
+		} else {
+			// Process the imported data
+			$file_data = $this->upload->data();
+			$inputFileName = './uploads/' . $file_data['file_name'];
 
-				$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
-				$worksheet = $spreadsheet->getActiveSheet();
-				$highestRow = $worksheet->getHighestRow();
-				$highestColumn = $worksheet->getHighestColumn();
-				$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+			$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
+			$worksheet = $spreadsheet->getActiveSheet();
+			$highestRow = $worksheet->getHighestRow();
+			$highestColumn = $worksheet->getHighestColumn();
+			$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
-				$data = array();
+			$data = array();
 
-				for ($row = 2; $row <= $highestRow; ++$row) {
-					$data[] = array(
-						'id_siswa' => $worksheet->getCellByColumnAndRow(1, $row)->getValue(),
-						'id_kelas' => $worksheet->getCellByColumnAndRow(2, $row)->getValue(),
-						'nama_siswa' => $worksheet->getCellByColumnAndRow(3, $row)->getValue(),
-						'nis' => $worksheet->getCellByColumnAndRow(4, $row)->getValue(),
-						'username' => $worksheet->getCellByColumnAndRow(5, $row)->getValue(),
-						'password' => $worksheet->getCellByColumnAndRow(6, $row)->getValue(),
-					);
-				}
-
-				$this->load->model('M_siswa');
-				$this->M_siswa->importData($data);
-
-				$this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil diimport</div>');
-				redirect('siswa');
+			for ($row = 2; $row <= $highestRow; ++$row) {
+				$data[] = array(
+					'id_siswa' => $worksheet->getCellByColumnAndRow(1, $row)->getValue(),
+					'id_kelas' => $worksheet->getCellByColumnAndRow(2, $row)->getValue(),
+					'nama_siswa' => $worksheet->getCellByColumnAndRow(3, $row)->getValue(),
+					'nis' => $worksheet->getCellByColumnAndRow(4, $row)->getValue(),
+					'username' => $worksheet->getCellByColumnAndRow(5, $row)->getValue(),
+					'password' => $worksheet->getCellByColumnAndRow(6, $row)->getValue(),
+				);
 			}
+
+			$this->load->model('M_siswa');
+			$this->M_siswa->importData($data); // Assuming you have a method called importData() in your M_siswa model
+
+			// Get the updated data from the database
+			$siswa = $this->M_siswa->getAllSiswa(); // Assuming you have a method called getAllData() in your M_siswa model to retrieve all the imported data
+
+			$this->load->view('admin/v_siswa', ['siswa' => $siswa]); // Replace 'your_view_file' with the actual view file where you want to display the table
+
+			$this->session->set_flashdata('message', '<div class="alert alert-success">Data peserta berhasil diimport</div>');
 		}
+
+		redirect('siswa');
 	}
+
+
+	// public function import()
+	// {
+	// 	$config['upload_path'] = './uploads/';
+	// 	$config['allowed_types'] = 'xlsx|xls';
+	// 	$config['max_size'] = '2048';
+
+	// 	$this->load->library('upload', $config);
+
+	// 	// Check if a file has been selected before uploading
+	// 	if (!$this->upload->do_upload('excel_file')) {
+	// 		$error = array('error' => $this->upload->display_errors());
+	// 		$this->session->set_flashdata('message', '<div class="alert alert-danger">' . $this->upload->display_errors() . '</div>');
+	// 		redirect('siswa');
+	// 	} else {
+	// 		// Process the imported data
+	// 		$file_data = $this->upload->data();
+	// 		$inputFileName = './uploads/' . $file_data['file_name'];
+
+	// 		$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
+	// 		$worksheet = $spreadsheet->getActiveSheet();
+	// 		$highestRow = $worksheet->getHighestRow();
+	// 		$highestColumn = $worksheet->getHighestColumn();
+	// 		$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+
+	// 		$data = array();
+
+	// 		for ($row = 2; $row <= $highestRow; ++$row) {
+	// 			$data[] = array(
+	// 				'id_siswa' => $worksheet->getCellByColumnAndRow(1, $row)->getValue(),
+	// 				'id_kelas' => $worksheet->getCellByColumnAndRow(2, $row)->getValue(),
+	// 				'nama_siswa' => $worksheet->getCellByColumnAndRow(3, $row)->getValue(),
+	// 				'nis' => $worksheet->getCellByColumnAndRow(4, $row)->getValue(),
+	// 				'username' => $worksheet->getCellByColumnAndRow(5, $row)->getValue(),
+	// 				'password' => $worksheet->getCellByColumnAndRow(6, $row)->getValue(),
+	// 			);
+	// 		}
+
+	// 		$this->load->model('M_siswa');
+	// 		$this->M_siswa->importData($data); // Assuming you have a method called importData() in your M_siswa model
+
+	// 		$this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil diimport</div>');
+	// 	}
+
+	// 	redirect('siswa');
+	// }
 }
