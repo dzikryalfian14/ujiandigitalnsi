@@ -31,9 +31,9 @@ class koreksi_essay extends CI_Controller
 
 
 
-
+        $id_peserta_essay= $this->input->get('id_peserta_essay');
         // // ambil data jawaban peserta dan soal
-        $data['jawaban_peserta_soal'] = $this->M_koreksi_essay->get_jawaban_peserta_soal();
+        $data['jawaban_peserta_soal'] = $this->M_koreksi_essay->get_jawaban_peserta_soal($id_peserta_essay);
 
         // ambil data soal essay
         $data['soal'] = $this->M_koreksi_essay->get_data_soal();
@@ -57,51 +57,39 @@ class koreksi_essay extends CI_Controller
         $this->load->view('admin/v_koreksi_essay', $data);
     }
 
-    // public function simpan_nilai()
-    // {
-    //     $input_nilai = $this->input->post('nilai'); // Mengambil nilai dari inputan
-
-    //     foreach ($input_nilai as $id_jawaban => $nilai) {
-    //         // Update nilai pada tabel database
-    //         $data = array(
-    //             'nilai' => $nilai
-    //         );
-    //         $this->db->where('id_jawaban_essay', $id_jawaban);
-    //         $this->db->update('tb_jawaban_essay', $data);
-    //         $this->session->set_flashdata('message', '<div class="alert alert-success alert-message"><i class="icon fa fa-check"></i><b>Selamat !<br></b> Anda telah berhasil menambahkan Nilai Ujian</div>');
-    //     }
-
-    //     // Set pesan berhasil ke session
-
-
-    //     // Setelah nilai disimpan, lakukan redirect
-    //     redirect('Koreksi_essay'); // Ganti dengan URL atau fungsi yang sesuai
-    // }
-
     public function simpan_nilai()
     {
         $input_nilai = $this->input->post('nilai'); // Mengambil nilai dari inputan
-
+        $id_peserta = $this->input->post('id_peserta_essay');
+    
         foreach ($input_nilai as $id_jawaban => $nilai) {
-            // Update nilai pada tabel database
+            // Update nilai pada tabel tb_jawaban_essay
             $data = array(
                 'nilai' => $nilai
             );
             $this->db->where('id_jawaban_essay', $id_jawaban);
-            $this->db->update('tb_jawaban_essay', $data); 
+            $this->db->update('tb_jawaban_essay', $data);
         }
-
+    
         // Menghitung total nilai berdasarkan ID peserta
         $id_peserta = $this->input->post('id_peserta_essay'); // Ganti dengan nama input ID peserta yang sesuai
         $total_nilai = $this->db->select_sum('nilai')->where('id_peserta_essay', $id_peserta)->get('tb_jawaban_essay')->row()->nilai;
 
+        $data = array(
+            'nilai_essay' => $total_nilai
+        );
+        $this->load->model('m_data'); // Load model m_data
+        $this->m_data->updateNilaiEssay($id_peserta, $data);
+
         // Simpan total_nilai ke flashdata
         $this->session->set_flashdata('total_nilai', $total_nilai);
-
+    
         // Setelah nilai disimpan, lakukan redirect
-        redirect('Koreksi_essay'); // Ganti dengan URL atau fungsi yang sesuai
+        redirect('koreksi_peserta_essay'); // Ganti dengan URL atau fungsi yang sesuai
     }
-
+    
+    
+    
 
 
 

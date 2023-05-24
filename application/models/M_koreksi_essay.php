@@ -3,13 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_koreksi_essay extends CI_Model
 {
-    public function get_jawaban_peserta_soal()
+    public function get_jawaban_peserta_soal($id_peserta_essay)
     {
         $this->db->select('tb_jawaban_essay.id_jawaban_essay, tb_peserta_essay.id_peserta_essay, tb_soal_essay.id_soal_essay, tb_siswa.nama_siswa, tb_soal_essay.pertanyaan, tb_jawaban_essay.jawaban, tb_jawaban_essay.nilai');
         $this->db->from('tb_jawaban_essay');
         $this->db->join('tb_peserta_essay', 'tb_jawaban_essay.id_peserta_essay = tb_peserta_essay.id_peserta_essay');
         $this->db->join('tb_siswa', 'tb_peserta_essay.id_siswa = tb_siswa.id_siswa');
         $this->db->join('tb_soal_essay', 'tb_jawaban_essay.id_soal_essay = tb_soal_essay.id_soal_essay');
+        $this->db->where('tb_peserta_essay.id_peserta_essay', $id_peserta_essay);
         $query = $this->db->get();
         return $query->result();
     }

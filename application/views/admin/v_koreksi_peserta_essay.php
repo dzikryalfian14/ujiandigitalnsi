@@ -51,7 +51,7 @@ $this->load->view('admin/sidebar');
                                     <td><?php echo $row->nama_siswa; ?></td>
                                     <td><?php echo $row->nama_mapel_essay; ?></td>
                                     <td>
-                                        <a href="<?php echo base_url('koreksi_essay') ?>" class="btn btn-primary">Lihat Jawaban <?php echo $row->nama_mapel_essay; ?></a>
+                                        <a href="<?php echo base_url('koreksi_essay?id_peserta_essay='. $row->id_peserta_essay); ?>" class="btn btn-primary">Lihat Jawaban <?php echo $row->nama_mapel_essay; ?></a>
                                     </td>
                                     <td>
                                         <?php if ($row->status_koreksi == 0) {

@@ -4,7 +4,11 @@ defined('BASEPATH') or exit('no direct script access allowed');
 class M_data extends CI_Model
 {
 
-
+	public function fixbisa($peserta_essay_id, $total_nilai)
+    {
+        $this->db->where('id_peserta_essay', $peserta_essay_id);
+        $this->db->update('tb_peserta_essay', ['nilai_essay' => $total_nilai]);
+    }
 	//fungsi untuk mengambil data dari database
 	public function get_data($table)
 	{
@@ -103,11 +107,16 @@ class M_data extends CI_Model
 		$this->db->update('tb_jawaban', $data);
 	}
 
-	public function UpdateNilaiEssay($id_jawaban_essay, $data)
-	{
-		$this->db->where('id_jawaban_essay', $id_jawaban_essay);
-		$this->db->update('tb_jawaban_essay', $data);
-	}
+	public function updateNilaiEssay($id_peserta, $data)
+    {
+        $this->db->where('id_peserta', $id_peserta);
+        $this->db->update('tb_peserta_essay', $data);
+    }
+	// public function UpdateNilaiEssay($id_jawaban_essay, $data)
+	// {
+	// 	$this->db->where('id_jawaban_essay', $id_jawaban_essay);
+	// 	$this->db->update('tb_jawaban_essay', $data);
+	// }
 
 	public function UpdateNilai2($id_peserta, $data)
 	{

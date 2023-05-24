@@ -29,7 +29,7 @@ $this->load->view('admin/sidebar');
                                 <select class="select2 form-control" name="id" required="">
                                     <option selected="selected" disabled="">- Pilih Peserta Ujian -</option>
                                     <?php foreach ($peserta as $s) { ?>
-                                        <option value="<?= $s->id_siswa; ?>"><?= $s->nama_siswa; ?> | <?= $s->nama_mapel_essay; ?></option>
+                                        <option value="<?= $s->id_siswa; ?>"><?= $s->nama_siswa; ?></option>
                                     <?php } ?>
                                 </select>
                             </div>  
@@ -73,7 +73,10 @@ $this->load->view('admin/sidebar');
                             </thead>
                             <tbody>
                                 <?php $no = 1;
-                                foreach ($jawaban_peserta_soal as $row) : ?>
+                                $total_nilai = 0;
+                                foreach ($jawaban_peserta_soal as $row) :
+                                    
+                                ?>
                                     <tr>
                                         <td><?php echo $no++; ?></td>
                                         <td><?php echo $row->nama_siswa; ?></td>
@@ -83,13 +86,22 @@ $this->load->view('admin/sidebar');
                                             <input type="number" name="nilai[<?php echo $row->id_jawaban_essay; ?>]" class="form-control" min="0" max="100" step="1" value="<?php echo $row->nilai; ?>">
                                         </td>
                                     </tr>
+                                    <?php $total_nilai += $row->nilai; // Menambahkan nilai ke total nilai ?>
                                 <?php endforeach; ?>
                             </tbody>
+                            <tfoot>
+
+                           
+
+                            </tfoot>
                         </table>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                     <!-- Tampilkan total nilai -->
-                    <p>Total nilai: <?php echo $this->session->flashdata('total_nilai') ?? 0; ?></p>
+                   
+                    <div class="">
+                        <p>Total nilai <?php echo $row  ->nama_siswa; ?>: <?php echo $total_nilai; ?></p>
+                    </div>
 
                 </div>
             </div>
