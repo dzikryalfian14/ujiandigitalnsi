@@ -32,6 +32,9 @@ class Hasil_ujian_essay extends CI_Controller
         //         $data['hasil_essay'][$key]->status_lulus = "Tidak Lulus";
         //     }
         // }
+       
+
+
         $this->load->view('admin/v_hasil_essay', $data);
     }
 

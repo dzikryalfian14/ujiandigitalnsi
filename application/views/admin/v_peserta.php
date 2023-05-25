@@ -28,20 +28,15 @@ $this->load->view('admin/sidebar');
                     <a href="<?php echo base_url('peserta_tambah'); ?>"><button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#peserta_tambah"><span class="fa fa-plus"></span> Tambah </button></a>
                     <a href="<?php echo base_url('jenis_ujian'); ?>"><button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#"><span></span>Data Nama Ujian</button></a>
 
-
-
                 </div>
                 <!-- /.box-header -->
-
-
-
 
                 <div class="box-body" style="overflow-x: scroll;">
                     <table id="data" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th width="1%">No</th>
-                                <th>Nama Siswa</th>
+                                <th>Nama Peserta</th>
                                 <th>Ruangan</th>
                                 <th>Nama Ujian</th>
                                 <th>Jenis Ujian</th>

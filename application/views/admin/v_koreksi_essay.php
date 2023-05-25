@@ -2,7 +2,7 @@
 $this->load->view('admin/head');
 ?>
 
-<!--tambahkan custom css disini-->
+<!-- Tambahkan custom CSS di sini -->
 
 <?php
 $this->load->view('admin/topbar');
@@ -18,21 +18,21 @@ $this->load->view('admin/sidebar');
             <div class="box box-success" style="overflow-x: scroll;">
                 <div class="box-header">
                     <center>
-                        <h4 class="box-title">Koreksi Ujian Essay</h4>
+                        <h4 class="box-title"><b> Ujian Essay </b></h4>
                     </center>
                 </div>
-                <form action="<?= base_url('koreksi_essay'); ?>" method="get" class="form-horizontal">
+                <!-- <form action="<?= base_url('koreksi_essay'); ?>" method="get" class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Peserta Ujian</label>
                             <div class="col-sm-10">
                                 <select class="select2 form-control" name="id" required="">
                                     <option selected="selected" disabled="">- Pilih Peserta Ujian -</option>
-                                    <?php foreach ($peserta as $s) { ?>
-                                        <option value="<?= $s->id_siswa; ?>"><?= $s->nama_siswa; ?></option>
+                                    <?php foreach ($jawaban_peserta_soal as $s) { ?>
+                                        <option value="<?= $s->id_peserta_essay; ?>"><?= $s->pertanyaan; ?></option>
                                     <?php } ?>
                                 </select>
-                            </div>  
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label"></label>
@@ -44,14 +44,8 @@ $this->load->view('admin/sidebar');
                             </div>
                         </div>
                     </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer">
 
-
-
-                    </div>
-                    <!-- /.box-footer -->
-                </form>
+                </form> -->
 
             </div>
 
@@ -72,10 +66,10 @@ $this->load->view('admin/sidebar');
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $no = 1;
+                                <?php
+                                $no = 1;
                                 $total_nilai = 0;
                                 foreach ($jawaban_peserta_soal as $row) :
-                                    
                                 ?>
                                     <tr>
                                         <td><?php echo $no++; ?></td>
@@ -86,22 +80,24 @@ $this->load->view('admin/sidebar');
                                             <input type="number" name="nilai[<?php echo $row->id_jawaban_essay; ?>]" class="form-control" min="0" max="100" step="1" value="<?php echo $row->nilai; ?>">
                                         </td>
                                     </tr>
-                                    <?php $total_nilai += $row->nilai; // Menambahkan nilai ke total nilai ?>
-                                <?php endforeach; ?>
+                                <?php
+                                    $total_nilai += $row->nilai; // Menambahkan nilai ke total nilai
+                                endforeach;
+                                ?>
                             </tbody>
                             <tfoot>
-
-                           
 
                             </tfoot>
                         </table>
                         <button type="submit" class="btn btn-primary">Simpan</button>
+                        <a href="<?php echo base_url('koreksi_peserta_essay'); ?>" class="btn btn-default btn-flat"><span class="fa fa-arrow-left"></span> Kembali</a>
                     </form>
                     <!-- Tampilkan total nilai -->
-                   
-                    <div class="">
-                        <p>Total nilai <?php echo $row  ->nama_siswa; ?>: <?php echo $total_nilai; ?></p>
-                    </div>
+                    <?php if (!empty($jawaban_peserta_soal)) { ?>
+                        <div class="">
+                            <p>Total nilai <?php echo $jawaban_peserta_soal[0]->nama_siswa; ?>: <?php echo $total_nilai; ?></p>
+                        </div>
+                    <?php } ?>
 
                 </div>
             </div>
@@ -115,7 +111,7 @@ $this->load->view('admin/sidebar');
 $this->load->view('admin/js');
 ?>
 
-<!--tambahkan custom js disini-->
+<!-- Tambahkan custom JS di sini -->
 
 <script type="text/javascript">
     $(function() {

@@ -84,14 +84,14 @@ $this->load->view('admin/sidebar');
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Tulis Soal Ujian</label>
                                 <div class="col-sm-10">
-                                    <textarea class="summernote" rows="20" style="width: 100%" name="soal" required></textarea>
+                                    <textarea class="summernote" rows="20" style="width: 100%" name="soal"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Gambar</label>
                                 <div class="col-sm-10">
-                                    <input type="file" name="gambar" ><b>Format Gambar harus .png dan .jpg!</b>
+                                    <input type="file" name="gambar"><b>Format Gambar harus .png dan .jpg!</b>
                                 </div>
                             </div>
 

@@ -147,7 +147,7 @@ $this->load->view('admin/sidebar');
                   <p class="help-block">File harus bertipe <b>.xls, .xlsx</p>
                 </div>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label class="col-sm-2 control-label">Kelas</label>
                 <div class="col-sm-10">
                   <select class="select2 form-control" name="kelas" required="">
@@ -158,7 +158,7 @@ $this->load->view('admin/sidebar');
                   </select>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- /.box-body -->
             <div class="box-footer">
               <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
