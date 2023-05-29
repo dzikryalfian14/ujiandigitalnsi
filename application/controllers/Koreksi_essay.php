@@ -31,7 +31,7 @@ class koreksi_essay extends CI_Controller
 
 
 
-        $id_peserta_essay= $this->input->get('id_peserta_essay');
+        $id_peserta_essay = $this->input->get('id_peserta_essay');
         // // ambil data jawaban peserta dan soal
         $data['jawaban_peserta_soal'] = $this->M_koreksi_essay->get_jawaban_peserta_soal($id_peserta_essay);
 
@@ -56,12 +56,11 @@ class koreksi_essay extends CI_Controller
 
         $this->load->view('admin/v_koreksi_essay', $data);
     }
-
     public function simpan_nilai()
     {
         $input_nilai = $this->input->post('nilai'); // Mengambil nilai dari inputan
         $id_peserta = $this->input->post('id_peserta_essay');
-    
+
         foreach ($input_nilai as $id_jawaban => $nilai) {
             // Update nilai pada tabel tb_jawaban_essay
             $data = array(
@@ -70,9 +69,14 @@ class koreksi_essay extends CI_Controller
             $this->db->where('id_jawaban_essay', $id_jawaban);
             $this->db->update('tb_jawaban_essay', $data);
         }
-    
+
+        // Mengubah status koreksi menjadi "Sudah Dikoreksi"
+        $data = array(
+            'status_koreksi' => 1
+        );
+        $this->M_koreksi_essay->update_status_koreksi($id_peserta, $data);
+
         // Menghitung total nilai berdasarkan ID peserta
-        $id_peserta = $this->input->post('id_peserta_essay'); // Ganti dengan nama input ID peserta yang sesuai
         $total_nilai = $this->db->select_sum('nilai')->where('id_peserta_essay', $id_peserta)->get('tb_jawaban_essay')->row()->nilai;
 
         $data = array(
@@ -83,13 +87,23 @@ class koreksi_essay extends CI_Controller
 
         // Simpan total_nilai ke flashdata
         $this->session->set_flashdata('total_nilai', $total_nilai);
-    
+
+        // Ubah status koreksi pada variabel peserta
+        foreach ($peserta as &$row) {
+            if ($row->id_peserta_essay == $id_peserta) {
+                $row->status_koreksi = 1;
+                break;
+            }
+        }
+
         // Setelah nilai disimpan, lakukan redirect
         redirect('koreksi_peserta_essay'); // Ganti dengan URL atau fungsi yang sesuai
     }
-    
-    
-    
+
+
+
+
+
 
 
 

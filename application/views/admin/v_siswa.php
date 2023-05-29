@@ -34,8 +34,6 @@ $this->load->view('admin/sidebar');
           <?php echo '<button type="button" class="btn btn-danger btn-flat" onclick="return confirm(\'Apakah yakin semua data peserta ini dihapus?\') && $.get(\'' . base_url('siswa/hapusall') . '\', function(data) { location.reload(); })"><span class="fa fa-trash"></span> Hapus Semua Data</button>' ?>
 
 
-
-
         </div>
         <!-- /.box-header -->
         <div class="box-header">
@@ -87,6 +85,7 @@ $this->load->view('admin/sidebar');
             </tbody>
           </table>
         </div>
+
       </div>
     </div>
   </div>
@@ -159,12 +158,12 @@ $this->load->view('admin/sidebar');
                 </div>
               </div>
             </div> -->
-            <!-- /.box-body -->
-            <div class="box-footer">
-              <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-success pull-right" title="Import Data siswa">Import</button>
-            </div>
-            <!-- /.box-footer -->
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success pull-right" title="Import Data siswa">Import</button>
+              </div>
+              <!-- /.box-footer -->
           </form>
           <!-- /.tutup form dengan modal  -->
         </div>
@@ -177,12 +176,11 @@ $this->load->view('admin/sidebar');
 <!-- /.modal -->
 
 
-
-
-
 <?php
 $this->load->view('admin/js');
 ?>
+
+
 <!--tambahkan custom js disini-->
 
 <script type="text/javascript">

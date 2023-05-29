@@ -62,7 +62,7 @@ if (isset($_SESSION["waktu_start"])) {
                         </center>
                     </div><!-- /.box-header -->
                     <div class="box-body" style="overflow-y: scroll;height: 525px;">
-                        <form id="formSoal" role="form" action="<?php echo base_url(); ?>ruang_ujian_essay/jawab_aksi" method="post" onsubmit="return confirm('Anda Yakin ?')">
+                        <form id="formSoal" role="form" action="<?php echo base_url(); ?>ruang_ujian_essay/jawab_aksi" method="post" onsubmit="return confirm('Apakah Anda Yakin Ingin Mengakhiri Ujian?')">
                             <form id="formSoal" role="form" action="<?php echo base_url(); ?>ruang_ujian_essay/jawab_aksi" method="post" onsubmit="return confirmSweetAlert()">
 
                                 <input type="hidden" name="id_peserta_essay" value="<?php echo $id['id_peserta_essay']; ?>">
@@ -98,7 +98,6 @@ if (isset($_SESSION["waktu_start"])) {
                                 <button type="submit" class="btn btn-primary btn-flat pull-right">Simpan</button>
                             </form>
                             <div class="box-footer">
-
                             </div>
                     </div><!-- /.box-body -->
                 </div>

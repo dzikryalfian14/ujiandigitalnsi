@@ -65,7 +65,7 @@ $this->load->view('admin/sidebar');
                             <tr>
                                 <th width="1%">No</th>
                                 <th>Nama Peserta</th>
-                                <th>NIS</th>
+                                <th>NIK</th>
                                 <th>Nama Ujian</th>
                                 <th>Tanggal Ujian</th>
                                 <th>Jam Ujian</th>
@@ -78,6 +78,7 @@ $this->load->view('admin/sidebar');
                         <tbody>
                             <?php
                             $no = 1;
+                            $total_nilai = 0;
                             // $total_nilai = 0;
                             foreach ($hasil_essay as $d) { ?>
                                 <tr>
@@ -90,7 +91,6 @@ $this->load->view('admin/sidebar');
                                     <td><?php echo $d->jenis_ujian_essay; ?></td>
                                     <td>
                                         <?php if ($d->status_ujian_ujian == 2) { ?>
-
                                             <!-- <?php echo $d->nilai_essay; ?> -->
                                             <?php
                                             $total_nilai = $this->db->select_sum('nilai')->where('id_peserta_essay', $d->id_peserta_essay)->get('tb_jawaban_essay')->row()->nilai;

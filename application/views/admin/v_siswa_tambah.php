@@ -7,13 +7,13 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">NIS</label>
+      <label class="col-sm-2 control-label">NIK</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" name="nis" required>
+        <input type="text" class="form-control" name="nis" required placeholder="Isi Jika ada">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Ruangan</label>
+      <label class="col-sm-2 control-label">Ruangan</label> 
       <div class="col-sm-10">
         <select class="select2 form-control" name="kelas" required="">
           <?php foreach ($kelas as $k) { ?>

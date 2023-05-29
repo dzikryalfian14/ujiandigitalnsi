@@ -88,9 +88,7 @@ class M_koreksi_essay extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
-
-
+ 
     public function get_jawaban_by_id_soal($id_soal)
     {
         $this->db->select('tb_jawaban_essay.jawaban, tb_peserta_essay.id_siswa');
@@ -100,8 +98,6 @@ class M_koreksi_essay extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
-
 
     public function get_mapel_essay()
     {
@@ -160,13 +156,6 @@ class M_koreksi_essay extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
-    // public function update_status_koreksi($id_jawaban, $status_koreksi)
-    // {
-    //     $this->db->set('status_koreksi', $status_koreksi);
-    //     $this->db->where('id', $id_jawaban);
-    //     $this->db->update('tb_peserta_essay');
-    // }
 
     public function update_data($id_peserta_essay, $data)
     {

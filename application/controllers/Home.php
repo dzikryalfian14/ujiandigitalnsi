@@ -12,9 +12,7 @@ class Home extends CI_Controller
 		//cek session yang login, jika session status tidak sama dengan session admin_login,maka halaman akan di alihkan kembali ke halaman login.
 		if ($this->session->userdata('status') != 'admin_login') {
 			if ($this->session->userdata('status') != 'guru_login') {
-				
 				redirect('auth');
-				
 			}
 		}
 	}

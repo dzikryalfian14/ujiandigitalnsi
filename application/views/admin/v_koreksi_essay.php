@@ -18,7 +18,7 @@ $this->load->view('admin/sidebar');
             <div class="box box-success" style="overflow-x: scroll;">
                 <div class="box-header">
                     <center>
-                        <h4 class="box-title"><b> Ujian Essay </b></h4>
+                        <h4 class="box-title"><b>Jawaban Peserta Ujian Essay </b></h4>
                     </center>
                 </div>
                 <!-- <form action="<?= base_url('koreksi_essay'); ?>" method="get" class="form-horizontal">
@@ -74,7 +74,15 @@ $this->load->view('admin/sidebar');
                                     <tr>
                                         <td><?php echo $no++; ?></td>
                                         <td><?php echo $row->nama_siswa; ?></td>
-                                        <td><?php echo $row->pertanyaan; ?></td>
+                                        <td>
+                                            <?php
+                                            echo $row->pertanyaan;
+                                            if (!empty($row->gambar)) {
+                                                echo '<br><img src="' . base_url($row->gambar) . '" width="200">';
+                                            }
+                                            ?>
+
+                                        </td>
                                         <td><?php echo $row->jawaban; ?></td>
                                         <td>
                                             <input type="number" name="nilai[<?php echo $row->id_jawaban_essay; ?>]" class="form-control" min="0" max="100" step="1" value="<?php echo $row->nilai; ?>">

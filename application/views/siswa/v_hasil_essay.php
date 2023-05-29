@@ -29,7 +29,7 @@ $this->load->view('siswa/sidebar');
                             <tr>
                                 <th width="1%">No</th>
                                 <th>Nama Peserta</th>
-                                <th>NIS</th>
+                                <th>NIK</th>
                                 <th>Tanggal Ujian</th>
                                 <th>Jam Ujian</th>
                                 <th>Nilai</th>
@@ -49,7 +49,11 @@ $this->load->view('siswa/sidebar');
                                     <td>
                                         <?php if ($d->status_ujian_ujian == 2) { ?>
 
-                                            <?php echo $d->nilai_essay; ?>
+                                            <!-- <?php echo $d->nilai_essay; ?> -->
+                                            <?php
+                                            $total_nilai = $this->db->select_sum('nilai')->where('id_peserta_essay', $d->id_peserta_essay)->get('tb_jawaban_essay')->row()->nilai;
+                                            echo $total_nilai;
+                                            ?>
 
                                         <?php } else { ?>
                                             <span class='btn btn-xs btn-default'>Belum Ujian</span>
@@ -57,7 +61,7 @@ $this->load->view('siswa/sidebar');
                                     </td>
                                     <td>
                                         <?php if ($d->status_ujian_ujian == 2) { ?>
-                                            <?php if ($d->nilai_essay >= 70) { ?>
+                                            <?php if ($d->nilai_essay >= 0 && $total_nilai >= 70) { ?>
                                                 <span class='btn btn-xs btn-success'>Lulus</span>
                                             <?php } else { ?>
                                                 <span class='btn btn-xs btn-danger'>Tidak Lulus</span>
@@ -76,12 +80,6 @@ $this->load->view('siswa/sidebar');
         </div>
         <!-- ./row -->
 </section><!-- /.content -->
-
-
-
-
-
-
 
 <?php
 $this->load->view('siswa/js');
