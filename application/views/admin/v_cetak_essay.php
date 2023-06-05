@@ -9,8 +9,9 @@
 <body>
     <div class="container">
         <div class="content-wrapper">
-            <img src="image/logo nsi.png" style="width: 65px; height: auto; position: absolute;">
-            <link rel="shortcut icon" href="image/logo nsi.jpg">
+            <img src="assets/logo_nsi.jpg" style="width: 65px; height: auto; position: absolute;">
+            <link rel="shortcut icon" href="assets/logo_nsi.jpg">
+            
 
             <table style="width: 100%;">
                 <tr>
@@ -63,7 +64,7 @@
                                                 ?>
 
                                             <?php } else { ?>
-                                                <span class='btn btn-xs btn-default'>Belum Ujian</span>
+                                                <span class='btn btn-xs btn-default'>Belum di Nilai</span>
                                             <?php } ?>
 
                                         <td>

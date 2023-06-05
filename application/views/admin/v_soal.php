@@ -22,7 +22,6 @@ $this->load->view('admin/sidebar');
                 <div class="box-header">
 
 
-
                     <!-- /. modal  -->
                     <div class="modal fade" id="modal-default">
                         <div class="modal-dialog">

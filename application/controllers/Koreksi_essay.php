@@ -97,7 +97,7 @@ class koreksi_essay extends CI_Controller
         }
 
         // Setelah nilai disimpan, lakukan redirect
-        redirect('koreksi_peserta_essay'); // Ganti dengan URL atau fungsi yang sesuai
+        redirect('hasil_ujian_essay'); // Ganti dengan URL atau fungsi yang sesuai
     }
 
 

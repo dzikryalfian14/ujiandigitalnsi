@@ -97,7 +97,7 @@ $this->load->view('admin/sidebar');
                                     <th width="1%">No</th>
                                     <th>Nama Peserta</th>
                                     <th>NIK</th>
-                                    <th>Kelas</th>
+                                    <th>Ruangan</th>
                                     <th width="13%">
                                         <input type="checkbox" class="check-all" id="cek-semua" /> Pilih Semua
                                     </th>

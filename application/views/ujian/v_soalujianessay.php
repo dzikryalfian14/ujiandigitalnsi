@@ -73,7 +73,7 @@ if (isset($_SESSION["waktu_start"])) {
                                     $no++ ?>
                                     <div class="form-group">
                                         <table class="table table-bordered table-striped">
-                                            <tbody>
+                                            <tbody> 
                                                 <tr>
                                                     <td width="1%"><?php echo $no; ?>.</td>
                                                     <td>

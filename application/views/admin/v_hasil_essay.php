@@ -133,7 +133,7 @@ $this->load->view('admin/sidebar');
                                     <td>
                                         <?php
                                         if ($d->nilai_essay == '0' && $total_nilai == '0') {
-                                            echo "<span class='btn btn-xs btn-default'>Belum Ujian</span>";
+                                            echo "<span class='btn btn-xs btn-default'>Belum di Nilai</span>";
                                         } else {
                                             echo "<a href='" . 'hasil_ujian_essay/cetak/' . "$d->id_peserta_essay' class='btn btn-xs btn-success' title='Cetak Hasil Ujian' target='_blank'><span class='fa fa-print'></span></a>";;
                                         }
