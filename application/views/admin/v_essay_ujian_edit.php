@@ -57,18 +57,18 @@ $this->load->view('admin/sidebar');
                                     <label class="col-sm-2 control-label">Gambar Sebelumnya</label>
                                     <div class="col-sm-10">
                                         <?php if (!empty($s->gambar)) { ?>
-                                            <img src="<?= base_url($s->gambar); ?>" alt="Gambar" style="max-width: 200px;" >
+                                            <img src="<?= base_url($s->gambar); ?>" alt="Gambar" style="max-width: 500px;">
                                         <?php } ?>
                                     </div>
                                 </div>
 
                                 <!-- masukkan jawaban -->
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label class="col-sm-2 control-label">Bobot Soal</label>
                                     <div class="col-sm-10">
-                                        <textarea rows="1" style="width: 10%" name="jawaban" required><?= $s->jawaban; ?></textarea>
+                                        <textarea rows="1" style="width: 10%" name="jawaban" ><?= $s->jawaban; ?></textarea>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label"></label>
                                     <div class="col-sm-10">

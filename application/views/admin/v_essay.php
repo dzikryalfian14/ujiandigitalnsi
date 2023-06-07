@@ -96,12 +96,12 @@ $this->load->view('admin/sidebar');
                             </div>
 
                             <!-- masukkan bobot soal -->
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="col-sm-2 control-label">Bobot Soal</label>
                                 <div class="col-sm-10">
-                                    <textarea rows="1" style="width: 10%" name="kunci" required></textarea>
+                                    <textarea rows="1" style="width: 10%" name="kunci" ></textarea>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"></label>

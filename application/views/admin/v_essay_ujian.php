@@ -68,7 +68,7 @@ $this->load->view('admin/sidebar');
                             <th width="10%">Kode Ujian </th>
                             <th width="20%">Nama Ujian</th>
                             <th>Pertanyaan</th>
-                            <th width="13%">Bobot Soal</th>
+                            <!-- <th width="13%">Bobot Soal</th> -->
                             <th width="8%">Aksi</th>
                         </tr>
                     </thead>
@@ -84,13 +84,13 @@ $this->load->view('admin/sidebar');
                                     <?php
                                     echo $d->pertanyaan;
                                     if (!empty($d->gambar)) {
-                                        echo '<br><img src="' . base_url($d->gambar) . '" width="200">';
+                                        echo '<br><img src="' . base_url($d->gambar) . '" width="400">';
                                     }
                                     ?>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <?php echo $d->jawaban; ?>
-                                </td>
+                                </td> -->
                                 <td>
                                     <a href="<?= base_url() . 'essay_ujian/edit/' . $d->id_soal_essay; ?>" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-edit" title="Ubah"></span></a> |
                                     <a href="<?= base_url() . 'essay_ujian/hapus/' . $d->id_soal_essay; ?>" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash" onclick="return confirm('Apakah yakin data soal ini akan di hapus?')" title="Hapus"></span></a>

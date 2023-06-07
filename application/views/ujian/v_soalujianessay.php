@@ -16,11 +16,40 @@ $this->load->view('ujian/head');
         font-size: 2em;
         font-weight: bolder;
     }
+
+    body {
+        -webkit-user-select: none;
+        /* Untuk browser berbasis WebKit seperti Chrome dan Safari */
+        -moz-user-select: none;
+        /* Untuk browser berbasis Gecko seperti Firefox */
+        -ms-user-select: none;
+        /* Untuk Internet Explorer */
+        user-select: none;
+        /* Atribut standar */
+    }
+
+    #captureWarning {
+        display: none;
+        background-color: yellow;
+        color: black;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+    }
+
+    #canvasElement {
+        display: none;
+        width: 200px;
+        height: 100px;
+        align-items: center;
+    }
 </style>
 
 <?php
 $this->load->view('ujian/topbar');
 ?>
+
+
 
 <?php
 
@@ -39,6 +68,9 @@ if (isset($_SESSION["waktu_start"])) {
         <h4><i class="icon fa fa-ban"></i> PERHATIAN!</h4>
         BAGI PESERTA UJIAN <b> NIHON SEIKI INDONESIA </b> YANG TERBUKTI MELAKUKAN KECURANGAN PADA SAAT MELAKUKAN TEST AKAN DIKENAKAN DISKUALIFIKASI DAN OTOMATIS TIDAK DAPAT LULUS KE TAHAP SELANJUTNYA!
     </div>
+
+    <!-- Tambahkan elemen peringatan -->
+    <div class="alert alert-danger alert-dismissible" id="captureWarning">Tindakan ini tidak diizinkan. Mohon jangan meng-capture halaman ujian ini!</div>
 
     <!-- Main content -->
     <section class="content">
@@ -63,45 +95,65 @@ if (isset($_SESSION["waktu_start"])) {
                     </div><!-- /.box-header -->
                     <div class="box-body" style="overflow-y: scroll;height: 525px;">
                         <form id="formSoal" role="form" action="<?php echo base_url(); ?>ruang_ujian_essay/jawab_aksi" method="post" onsubmit="return confirm('Apakah Anda Yakin Ingin Mengakhiri Ujian?')">
-                            <form id="formSoal" role="form" action="<?php echo base_url(); ?>ruang_ujian_essay/jawab_aksi" method="post" onsubmit="return confirmSweetAlert()">
+                            <input type="hidden" name="id_peserta_essay" value="<?php echo $id['id_peserta_essay']; ?>">
+                            <input type="hidden" name="jumlah_soal" value="<?php echo $total_soal; ?>">
 
-                                <input type="hidden" name="id_peserta_essay" value="<?php echo $id['id_peserta_essay']; ?>">
-                                <input type="hidden" name="jumlah_soal" value="<?php echo $total_soal; ?>">
-
+                            <div id="soalContainer">
                                 <?php $no = 0;
                                 foreach ($soal_essay as $s) {
-                                    $no++ ?>
-                                    <div class="form-group">
+                                    $no++;
+                                    $jawaban = ""; // Menyimpan jawaban yang telah diisi sebelumnya
+                                    if (isset($_POST['jawaban'][$s->id_soal_essay])) {
+                                        $jawaban = $_POST['jawaban'][$s->id_soal_essay];
+                                    }
+                                ?>
+                                    <div class="form-group soalItem" data-soal="<?php echo $no; ?>">
                                         <table class="table table-bordered table-striped">
-                                            <tbody> 
+                                            <tbody>
                                                 <tr>
                                                     <td width="1%"><?php echo $no; ?>.</td>
                                                     <td>
                                                         <?php echo $s->pertanyaan; ?>
                                                         <?php if (!empty($s->gambar)) : ?>
                                                             <br>
-                                                            <img src="<?php echo base_url($s->gambar); ?>" width="200">
+                                                            <img src="<?php echo base_url($s->gambar); ?>" width="400">
                                                             <br>
                                                         <?php endif; ?>
-                                                        <input type='hidden' name='soal[]' value='<?php echo $s->id_soal_essay; ?>' />
+                                                        <input type="hidden" name="soal[]" value="<?php echo $s->id_soal_essay; ?>" />
                                                         <br>
-                                                        <textarea rows="5" style="width: 95%; resize: none; overflow: auto;" type="text" name="jawaban[<?php echo $s->id_soal_essay; ?>]" required placeholder="Masukkan jawaban anda!"></textarea>
-                                                        <br> Bobot soal = <?php echo $s->jawaban; ?>
+                                                        <textarea rows="8" style="width: 95%; resize: none; overflow: auto;" type="text" name="jawaban[<?php echo $s->id_soal_essay; ?>]" required placeholder="Masukkan jawaban anda!"><?php echo $jawaban; ?></textarea>
+                                                        <!-- <br> Bobot soal = <?php echo $s->jawaban; ?> -->
                                                         <br>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-
                                     </div>
                                 <?php } ?>
-                                <button type="submit" class="btn btn-primary btn-flat pull-right">Simpan</button>
-                            </form>
-                            <div class="box-footer">
                             </div>
-                    </div><!-- /.box-body -->
-                </div>
+
+
+                        </form>
+                    </div>
+                    <div class="box-footer">
+                        <div class="form-group">
+                            <div class="text-center">
+                                <div style="display: flex; justify-content: center;">
+                                    <button type="button" class="btn btn-primary btn-flat" id="previousButton" onclick="previousSoal()" style="margin-right: 20px;">Soal Sebelumnya</button>
+                                    <button type="button" class="btn btn-primary btn-flat" id="nextButton" onclick="nextSoal()">Soal Berikutnya</button>
+                                </div>
+                                <div class="text-right">
+                                    <?php if ($total_soal > 0) { ?>
+                                        <button type="submit" class="btn btn-primary btn-flat" id="selesaiButton">Akhiri Ujian</button>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.box-body -->
             </div>
+        </div>
         </div>
 
 
@@ -114,6 +166,56 @@ if (isset($_SESSION["waktu_start"])) {
     <!--tambahkan custom js disini-->
 
     <script type="text/javascript">
+        var currentSoal = 0;
+        var totalSoal = <?php echo count($soal_essay); ?>;
+
+        function showSoal(soalIndex) {
+            var soalItems = document.getElementsByClassName('soalItem');
+            for (var i = 0; i < soalItems.length; i++) {
+                soalItems[i].style.display = 'none';
+            }
+            soalItems[soalIndex].style.display = 'block';
+
+            var previousButton = document.getElementById('previousButton');
+            var nextButton = document.getElementById('nextButton');
+            var selesaiButton = document.getElementById('selesaiButton');
+
+            previousButton.disabled = (soalIndex === 0);
+            nextButton.disabled = (soalIndex === totalSoal - 1);
+
+            if (soalIndex === totalSoal - 1) {
+                nextButton.style.display = 'none';
+                selesaiButton.style.display = 'inline-block';
+            } else {
+                nextButton.style.display = 'inline-block';
+                selesaiButton.style.display = 'none';
+            }
+        }
+
+        function previousSoal() {
+            currentSoal--;
+            if (currentSoal < 0) {
+                currentSoal = 0;
+            }
+            showSoal(currentSoal);
+        }
+
+        function nextSoal() {
+            currentSoal++;
+            if (currentSoal >= totalSoal) {
+                currentSoal = totalSoal - 1;
+            }
+            showSoal(currentSoal);
+        }
+
+        function submitForm() {
+            var formSoal = document.getElementById('formSoal');
+            if (formSoal) {
+                formSoal.submit();
+            }
+        }
+
+        showSoal(currentSoal);
         // var countDownDate = new Date("").getTime();
         // var x = setInterval(function() {
         //     var now = new Date().getTime();
@@ -181,6 +283,87 @@ if (isset($_SESSION["waktu_start"])) {
         window.location.hash = "Again-No-back-button";
         window.onhashchange = function() {
             window.location.hash = "no-back-button";
+        }
+
+        // Mencegah pengguna meng-capture halaman dengan mengubah tampilan dan menampilkan peringatan
+        window.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('keydown', function(event) {
+                if (event.ctrlKey && (event.key === 'c' || event.key === 'C')) {
+                    event.preventDefault();
+                    showCaptureWarning();
+                }
+            });
+            document.addEventListener('contextmenu', function(event) {
+                event.preventDefault();
+                showCaptureWarning();
+            });
+        });
+
+        function showCaptureWarning() {
+            var warningElement = document.getElementById('captureWarning');
+            warningElement.style.display = 'block';
+            setTimeout(function() {
+                warningElement.style.display = 'none';
+            }, 3000); // Menghilangkan peringatan setelah 3 detik
+        }
+
+        // Memeriksa dukungan WebRTC pada browser
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            // Menggunakan navigator.mediaDevices.getUserMedia untuk meminta akses kamera
+            navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+                .then(function(stream) {
+                    // Akses kamera berhasil, dapatkan elemen video dan tampilkan stream video
+                    var videoElement = document.getElementById('videoElement');
+                    videoElement.srcObject = stream;
+                })
+                .catch(function(error) {
+                    // Kesalahan dalam meminta akses kamera, tampilkan pesan kesalahan
+                    console.error('Gagal mendapatkan akses kamera: ', error);
+                });
+        } else {
+            // Browser tidak mendukung WebRTC
+            console.error('Browser tidak mendukung WebRTC.');
+        }
+
+        // Mendapatkan referensi elemen canvas
+        var canvas = document.getElementById('canvasElement');
+        var context = canvas.getContext('2d');
+
+        // Memeriksa apakah perangkat mendukung media getUserMedia
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            // Meminta akses kamera
+            navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+                .then(function(stream) {
+                    // Membuat objek video dan menetapkan stream video ke objek
+                    var video = document.createElement('video');
+                    video.srcObject = stream;
+
+                    // Menggunakan event 'loadedmetadata' untuk menunggu metadata video tersedia
+                    video.addEventListener('loadedmetadata', function() {
+                        // Mengatur ukuran elemen canvas sesuai dengan ukuran video
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+
+                        // Menampilkan lampu kamera dengan mengambil gambar dari video dan menggambarnya di elemen canvas
+                        setInterval(function() {
+                            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        }, 16);
+
+                        // Mengubah properti 'display' elemen canvas menjadi 'block' untuk menampilkannya
+                        canvas.style.display = 'block';
+                    });
+
+                    video.play();
+                })
+                .catch(function(error) {
+                    console.error('Permintaan akses kamera ditolak:', error);
+                });
+        } else {
+            console.error('Media getUserMedia tidak didukung.');
         }
     </script>
 

@@ -82,7 +82,7 @@ class essay extends CI_Controller
     {
         $nama_mapel_essay = $this->input->post('nama_mapel_essay');
         $soal = $this->input->post('soal');
-        $kunci = $this->input->post('kunci');
+        // $kunci = $this->input->post('kunci');
 
         // Cek apakah ada file gambar yang diunggah
         if (isset($_FILES['gambar']) && $_FILES['gambar']['name'] != "") {
@@ -109,7 +109,7 @@ class essay extends CI_Controller
         $data = array(
             'id_mapel_essay' => $nama_mapel_essay,
             'pertanyaan' => $soal,
-            'jawaban' => $kunci,
+            // 'jawaban' => $kunci,
             'gambar' => $gambar
         );
 

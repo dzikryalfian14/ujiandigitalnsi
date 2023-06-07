@@ -41,18 +41,18 @@
         <!-- Tutup Data Peserta Ujian -->
 
         <!-- Menu Data Hasil Ujian -->
-        <li <?= $this->uri->segment(1) == 'ruang_hasil' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
+        <!-- <li <?= $this->uri->segment(1) == 'ruang_hasil' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
           <a href="<?php echo base_url('ruang_hasil'); ?>"><i class="fa fa-folder"></i>
             <span>Hasil Ujian Pilihan Ganda</span>
           </a>
-        </li>
+        </li> -->
 
         <!-- hasil ujian essay -->
-        <li <?= $this->uri->segment(1) == 'ruang_hasil_essay' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
+        <!-- <li <?= $this->uri->segment(1) == 'ruang_hasil_essay' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
           <a href="<?php echo base_url('ruang_hasil_essay'); ?>"><i class="fa fa-folder"></i>
             <span>Hasil Ujian Essay</span>
           </a>
-        </li>
+        </li> -->
         <!-- Tutup Data Peserta Ujian -->
 
 

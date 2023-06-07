@@ -58,7 +58,7 @@ class Essay_ujian extends CI_Controller
         $nama_mapel_essay = $this->input->post('nama_mapel_essay');
         $soal = $this->input->post('pertanyaan');
         $gambar = $this->input->post('gambar');
-        $kunci = $this->input->post('jawaban');
+        // $kunci = $this->input->post('jawaban');
 
 
         // Cek apakah ada file gambar yang diunggah
@@ -88,7 +88,7 @@ class Essay_ujian extends CI_Controller
         $data = array(
             'id_mapel_essay' => $nama_mapel_essay,
             'pertanyaan' => $soal,
-            'jawaban' => $kunci,
+            // 'jawaban' => $kunci,
             'gambar' => $gambar
         );
 

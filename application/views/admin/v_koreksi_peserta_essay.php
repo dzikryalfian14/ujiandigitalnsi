@@ -45,34 +45,40 @@ $this->load->view('admin/sidebar');
                             <?php
                             $no = 1;
                             foreach ($peserta as $row) {
+                                // Periksa apakah peserta telah mengikuti ujian (status_ujian = 1)
+                                if ($row->status_ujian == 2) {
                             ?>
-                                <tr>
-                                    <td><?php echo $no++; ?></td>
-                                    <td><?php echo $row->nama_siswa; ?></td>
-                                    <td><?php echo $row->nama_mapel_essay; ?></td>
-                                    <td>
-                                        <a href="<?php echo base_url('koreksi_essay?id_peserta_essay='. $row->id_peserta_essay); ?>" class="btn btn-primary">Lihat Jawaban <?php echo $row->nama_mapel_essay; ?></a>
-                                    </td>
-                                    <td>
-                                        <?php if ($row->status_koreksi == 0) {
-                                            echo "<span> Belum Dikoreksi </span>";
-                                        } else if ($row->status_koreksi == 1) {
-                                            echo "<span> Sudah Dikoreksi </span>";
-                                        }
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <form method="post" action="<?php echo base_url('koreksi_peserta_essay/ubah_status_koreksi'); ?>">
-                                            <input type="hidden" name="id_peserta_essay" value="<?php echo $row->id_peserta_essay; ?>">
-                                            <select name="status_koreksi" onchange="this.form.submit()">
-                                                <option value="0" <?php if ($row->status_koreksi == 0) echo "selected"; ?>>Belum Dikoreksi</option>
-                                                <option value="1" <?php if ($row->status_koreksi == 1) echo "selected"; ?>>Sudah Dikoreksi</option>
-                                            </select>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                                    <tr>
+                                        <td><?php echo $no++; ?></td>
+                                        <td><?php echo $row->nama_siswa; ?></td>
+                                        <td><?php echo $row->nama_mapel_essay; ?></td>
+                                        <td>
+                                            <a href="<?php echo base_url('koreksi_essay?id_peserta_essay=' . $row->id_peserta_essay); ?>" class="btn btn-primary">Lihat Jawaban <?php echo $row->nama_mapel_essay; ?></a>
+                                        </td>
+                                        <td>
+                                            <?php if ($row->status_koreksi == 0) {
+                                                echo "<span> Belum Dikoreksi </span>";
+                                            } else if ($row->status_koreksi == 1) {
+                                                echo "<span> Sudah Dikoreksi </span>";
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="<?php echo base_url('koreksi_peserta_essay/ubah_status_koreksi'); ?>">
+                                                <input type="hidden" name="id_peserta_essay" value="<?php echo $row->id_peserta_essay; ?>">
+                                                <select name="status_koreksi" onchange="this.form.submit()">
+                                                    <option value="0" <?php if ($row->status_koreksi == 0) echo "selected"; ?>>Belum Dikoreksi</option>
+                                                    <option value="1" <?php if ($row->status_koreksi == 1) echo "selected"; ?>>Sudah Dikoreksi</option>
+                                                </select>
+                                            </form>
+                                        </td>
+                                    </tr>
+                            <?php
+                                }
+                            }
+                            ?>
                         </tbody>
+
                     </table>
                 </div>
             </div>

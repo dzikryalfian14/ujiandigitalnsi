@@ -99,16 +99,7 @@ class koreksi_essay extends CI_Controller
         // Setelah nilai disimpan, lakukan redirect
         redirect('hasil_ujian_essay'); // Ganti dengan URL atau fungsi yang sesuai
     }
-
-
-
-
-
-
-
-
-
-
+                
     public function kembali()
     {
         // Ambil id peserta dari query string
