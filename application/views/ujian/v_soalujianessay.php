@@ -30,11 +30,12 @@ $this->load->view('ujian/head');
 
     #captureWarning {
         display: none;
-        background-color: yellow;
         color: black;
         font-weight: bold;
         padding: 10px;
         text-align: center;
+        height: auto;
+
     }
 
     #canvasElement {
@@ -63,14 +64,17 @@ if (isset($_SESSION["waktu_start"])) {
 ?>
 <!-- Content Header (Page header) -->
 <section class="content">
-    <div class="alert alert-danger alert-dismissible">
+    <div class="alert alert-warning alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-ban"></i> PERHATIAN!</h4>
+        <h4><i class="fa fa-exclamation-triangle"></i> PERHATIAN!</h4>
         BAGI PESERTA UJIAN <b> NIHON SEIKI INDONESIA </b> YANG TERBUKTI MELAKUKAN KECURANGAN PADA SAAT MELAKUKAN TEST AKAN DIKENAKAN DISKUALIFIKASI DAN OTOMATIS TIDAK DAPAT LULUS KE TAHAP SELANJUTNYA!
     </div>
 
     <!-- Tambahkan elemen peringatan -->
-    <div class="alert alert-danger alert-dismissible" id="captureWarning">Tindakan ini tidak diizinkan. Mohon jangan meng-capture halaman ujian ini!</div>
+    <div class="alert alert-danger alert-dismissible" id="captureWarning">
+        <h4><i class="icon fa fa-ban"></i> Tindakan ini tidak diizinkan. Mohon jangan meng-capture halaman ujian ini!</h4>
+
+    </div>
 
     <!-- Main content -->
     <section class="content">
@@ -132,23 +136,23 @@ if (isset($_SESSION["waktu_start"])) {
                                 <?php } ?>
                             </div>
 
-
+                            <div class="form-group">
+                                <div class="text-center">
+                                    <div style="display: flex; justify-content: center;">
+                                        <button type="button" class="btn btn-primary btn-flat" id="previousButton" onclick="previousSoal()" style="margin-right: 20px;">Soal Sebelumnya</button>
+                                        <button type="button" class="btn btn-primary btn-flat" id="nextButton" onclick="nextSoal()">Soal Berikutnya</button>
+                                    </div>
+                                    <div class="text-right">
+                                        <?php if ($total_soal > 0) { ?>
+                                            <button type="submit" class="btn btn-primary btn-flat" id="selesaiButton">Akhiri Ujian</button>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="box-footer">
-                        <div class="form-group">
-                            <div class="text-center">
-                                <div style="display: flex; justify-content: center;">
-                                    <button type="button" class="btn btn-primary btn-flat" id="previousButton" onclick="previousSoal()" style="margin-right: 20px;">Soal Sebelumnya</button>
-                                    <button type="button" class="btn btn-primary btn-flat" id="nextButton" onclick="nextSoal()">Soal Berikutnya</button>
-                                </div>
-                                <div class="text-right">
-                                    <?php if ($total_soal > 0) { ?>
-                                        <button type="submit" class="btn btn-primary btn-flat" id="selesaiButton">Akhiri Ujian</button>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
 
                 </div><!-- /.box-body -->
@@ -325,45 +329,6 @@ if (isset($_SESSION["waktu_start"])) {
         } else {
             // Browser tidak mendukung WebRTC
             console.error('Browser tidak mendukung WebRTC.');
-        }
-
-        // Mendapatkan referensi elemen canvas
-        var canvas = document.getElementById('canvasElement');
-        var context = canvas.getContext('2d');
-
-        // Memeriksa apakah perangkat mendukung media getUserMedia
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            // Meminta akses kamera
-            navigator.mediaDevices.getUserMedia({
-                    video: true
-                })
-                .then(function(stream) {
-                    // Membuat objek video dan menetapkan stream video ke objek
-                    var video = document.createElement('video');
-                    video.srcObject = stream;
-
-                    // Menggunakan event 'loadedmetadata' untuk menunggu metadata video tersedia
-                    video.addEventListener('loadedmetadata', function() {
-                        // Mengatur ukuran elemen canvas sesuai dengan ukuran video
-                        canvas.width = video.videoWidth;
-                        canvas.height = video.videoHeight;
-
-                        // Menampilkan lampu kamera dengan mengambil gambar dari video dan menggambarnya di elemen canvas
-                        setInterval(function() {
-                            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                        }, 16);
-
-                        // Mengubah properti 'display' elemen canvas menjadi 'block' untuk menampilkannya
-                        canvas.style.display = 'block';
-                    });
-
-                    video.play();
-                })
-                .catch(function(error) {
-                    console.error('Permintaan akses kamera ditolak:', error);
-                });
-        } else {
-            console.error('Media getUserMedia tidak didukung.');
         }
     </script>
 
