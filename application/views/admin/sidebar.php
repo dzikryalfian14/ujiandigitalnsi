@@ -1,4 +1,6 @@
   <!-- Left side column. contains the logo and sidebar -->
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -127,11 +129,11 @@
         </li>
 
         <li>
-          <a href="<?php echo base_url('logout'); ?>"><i class="fa fa-sign-out"></i>
+          <a href="#" onclick="showConfirmation(event)">
+            <i class="fa fa-sign-out"></i>
             <span>Keluar Akun</span>
           </a>
         </li>
-
 
       </ul>
     </section>
@@ -140,3 +142,24 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+
+    <script>
+      function showConfirmation(event) {
+        event.preventDefault(); // Mencegah tindakan default saat mengklik tautan
+
+        Swal.fire({
+          icon: 'warning',
+          title: 'Konfirmasi',
+          text: 'Apakah Anda yakin ingin keluar dari akun?',
+          showCancelButton: true,
+          confirmButtonText: 'Keluar',
+          cancelButtonText: 'Batal',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Arahkan pengguna ke halaman logout
+            window.location.href = "<?php echo base_url('logout'); ?>";
+          }
+        });
+      }
+    </script>

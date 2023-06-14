@@ -70,3 +70,5 @@
   <!-- timer -->
   <script src="<?php echo base_url() ?>assets/timer/jquery.plugin.min.js"></script>
   <script src="<?php echo base_url() ?>assets/timer/jquery.countdown.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

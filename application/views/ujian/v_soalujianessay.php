@@ -1,7 +1,7 @@
 <?php
 $this->load->view('ujian/head');
 ?>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!--tambahkan custom css disini-->
 <style>
     #timer_place {
@@ -44,6 +44,11 @@ $this->load->view('ujian/head');
         height: 100px;
         align-items: center;
     }
+
+    .custom-confirm-button {
+        background-color: red !important; // Mengubah warna latar belakang tombol menjadi merah
+        color: white !important; // Mengubah warna teks tombol menjadi putih
+    }
 </style>
 
 <?php
@@ -72,7 +77,7 @@ if (isset($_SESSION["waktu_start"])) {
 
     <!-- Tambahkan elemen peringatan -->
     <div class="alert alert-danger alert-dismissible" id="captureWarning">
-        <h4><i class="icon fa fa-ban"></i> Tindakan ini tidak diizinkan. Mohon jangan meng-capture halaman ujian ini!</h4>
+        <h4><i class="icon fa fa-ban"></i> Tindakan ini dilarang Pihak Nihon Seiki Indonesia. Mohon jangan meng-capture halaman ujian ini!</h4>
 
     </div>
 
@@ -98,7 +103,8 @@ if (isset($_SESSION["waktu_start"])) {
                         </center>
                     </div><!-- /.box-header -->
                     <div class="box-body" style="overflow-y: scroll;height: 525px;">
-                        <form id="formSoal" role="form" action="<?php echo base_url(); ?>ruang_ujian_essay/jawab_aksi" method="post" onsubmit="return confirm('Apakah Anda Yakin Ingin Mengakhiri Ujian?')">
+
+                        <form id="formSoal" role="form" action="<?php echo base_url(); ?>ruang_ujian_essay/jawab_aksi" method="post" onsubmit="return showConfirmation(event)">
                             <input type="hidden" name="id_peserta_essay" value="<?php echo $id['id_peserta_essay']; ?>">
                             <input type="hidden" name="jumlah_soal" value="<?php echo $total_soal; ?>">
 
@@ -144,6 +150,9 @@ if (isset($_SESSION["waktu_start"])) {
                                     </div>
                                     <div class="text-right">
                                         <?php if ($total_soal > 0) { ?>
+                                            <br>
+                                            <br>
+                                            <br>
                                             <button type="submit" class="btn btn-primary btn-flat" id="selesaiButton">Akhiri Ujian</button>
                                         <?php } ?>
                                     </div>
@@ -170,6 +179,60 @@ if (isset($_SESSION["waktu_start"])) {
     <!--tambahkan custom js disini-->
 
     <script type="text/javascript">
+        // Fungsi untuk menyimpan jawaban ke Local Storage
+        function simpanJawabanKeLocalStorage(idSoal, jawaban) {
+            localStorage.setItem('jawaban[' + idSoal + ']', jawaban);
+        }
+
+        // Fungsi untuk memuat jawaban dari Local Storage
+        function muatJawabanDariLocalStorage() {
+            $('.soalItem').each(function() {
+                var idSoal = $(this).data('soal');
+                var jawaban = localStorage.getItem('jawaban[' + idSoal + ']');
+
+                if (jawaban) {
+                    $('textarea[name="jawaban[' + idSoal + ']"]').val(jawaban);
+                }
+            });
+        }
+
+        // Panggil fungsi muatJawabanDariLocalStorage saat halaman selesai dimuat
+        $(document).ready(function() {
+            muatJawabanDariLocalStorage();
+        });
+
+        function simpanJawabanKeServer(idSoal, jawaban) {
+            $.ajax({
+                url: 'proses_jawaban.php', // Ganti dengan URL skrip server Anda
+                type: 'POST',
+                data: {
+                    idSoal: idSoal,
+                    jawaban: jawaban
+                },
+                success: function(response) {
+                    // Handle response dari skrip server jika diperlukan
+                    console.log(response);
+
+                    // Simpan jawaban ke Local Storage
+                    simpanJawabanKeLocalStorage(idSoal, jawaban);
+                },
+                error: function(xhr, status, error) {
+                    // Handle error jika terjadi
+                    console.error(error);
+                }
+            });
+        }
+
+        $('textarea[name^="jawaban"]').on('input', function() {
+            var idSoal = $(this).attr('name').match(/\[(.*?)\]/)[1];
+            var jawaban = $(this).val();
+
+            // Simpan jawaban ke Local Storage
+            simpanJawabanKeLocalStorage(idSoal, jawaban);
+        });
+
+
+
         var currentSoal = 0;
         var totalSoal = <?php echo count($soal_essay); ?>;
 
@@ -195,6 +258,7 @@ if (isset($_SESSION["waktu_start"])) {
                 selesaiButton.style.display = 'none';
             }
         }
+
 
         function previousSoal() {
             currentSoal--;
@@ -280,6 +344,31 @@ if (isset($_SESSION["waktu_start"])) {
                         return false;
                     }
                 });
+        }
+
+        function showConfirmation(event) {
+            event.preventDefault(); // Mencegah pengiriman otomatis formulir
+
+            // Mengambil notifikasi dari admin LTE
+            var notification = "Apakah Anda Yakin Ingin Mengakhiri Ujian ini?";
+
+            // Menampilkan notifikasi menggunakan SweetAlert2
+            Swal.fire({
+                icon: 'warning',
+                title: 'Peringatan',
+                text: notification,
+                showCancelButton: true,
+                confirmButtonText: 'Akhiri Ujian',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'custom-confirm-button' // Mengatur kelas CSS tombol "OK" menjadi 'btn-danger'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna menekan tombol "OK", formulir akan dikirimkan
+                    document.getElementById("formSoal").submit();
+                }
+            });
         }
 
 

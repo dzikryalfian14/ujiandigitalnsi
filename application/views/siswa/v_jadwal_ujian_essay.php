@@ -64,14 +64,12 @@ date_default_timezone_set('Asia/Jakarta');
                                                 } else if (Date('d-m-Y', strtotime($d->tanggal_ujian)) == Date('d-m-Y') && Date('H:i:s', strtotime($d->jam_ujian)) <= Date('H:i:s')) {
                                                     echo "Waktu Ujian Habis";
                                                 } else {
-                                                    echo "Tunggu Waktu Ujian";
+                                                    echo "Menunggu Waktu Ujian";
                                                 }
                                             }
                                         }
                                         ?>
-
                                     </td>
-
                                 </tr>
                             <?php } ?>
                         </tbody>
