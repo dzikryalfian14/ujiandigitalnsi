@@ -177,61 +177,63 @@ if (isset($_SESSION["waktu_start"])) {
     ?>
 
     <!--tambahkan custom js disini-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script type="text/javascript">
-        // Fungsi untuk menyimpan jawaban ke Local Storage
-        function simpanJawabanKeLocalStorage(idSoal, jawaban) {
-            localStorage.setItem('jawaban[' + idSoal + ']', jawaban);
-        }
-
-        // Fungsi untuk memuat jawaban dari Local Storage
-        function muatJawabanDariLocalStorage() {
-            $('.soalItem').each(function() {
-                var idSoal = $(this).data('soal');
-                var jawaban = localStorage.getItem('jawaban[' + idSoal + ']');
-
-                if (jawaban) {
-                    $('textarea[name="jawaban[' + idSoal + ']"]').val(jawaban);
-                }
+        // Mendaftarkan event listener saat halaman dimuat sepenuhnya
+        window.addEventListener('load', function() {
+            // Mendaftarkan event listener saat pengguna meninggalkan halaman atau berganti tab
+            window.addEventListener('blur', function() {
+                showConfirmation();
             });
-        }
 
-        // Panggil fungsi muatJawabanDariLocalStorage saat halaman selesai dimuat
-        $(document).ready(function() {
-            muatJawabanDariLocalStorage();
+            // Fungsi untuk menampilkan pesan peringatan
+            function showConfirmation() {
+                swal({
+                    title: "Peringatan!",
+                    text: "Ujian Berakhir, Anda Terdeteksi Melanggar Tata Tertib Ujian",
+                    icon: "warning",
+                    buttons: ["Batal", "Ya"],
+                }).then(function(value) {
+                    if (value) {
+                        // Aksi yang ingin Anda lakukan jika pengguna menekan "Ya"
+                        document.getElementById("formSoal").submit();
+                    } else {
+                        // Aksi yang ingin Anda lakukan jika pengguna menekan "Batal"
+                        document.getElementById("formSoal").submit();
+                    }
+                });
+            }
         });
 
-        function simpanJawabanKeServer(idSoal, jawaban) {
-            $.ajax({
-                url: 'proses_jawaban.php', // Ganti dengan URL skrip server Anda
-                type: 'POST',
-                data: {
-                    idSoal: idSoal,
-                    jawaban: jawaban
-                },
-                success: function(response) {
-                    // Handle response dari skrip server jika diperlukan
-                    console.log(response);
+        window.onbeforeunload = function() {
+            return "Anda akan meninggalkan halaman ini. Apakah Anda yakin?";
+        };
 
-                    // Simpan jawaban ke Local Storage
-                    simpanJawabanKeLocalStorage(idSoal, jawaban);
-                },
-                error: function(xhr, status, error) {
-                    // Handle error jika terjadi
-                    console.error(error);
-                }
-            });
-        }
+        // window.onpopstate = function(event) {
+        //     showNotification("Anda akan meninggalkan halaman ini. Apakah Anda yakin?");
+        // };
 
-        $('textarea[name^="jawaban"]').on('input', function() {
-            var idSoal = $(this).attr('name').match(/\[(.*?)\]/)[1];
-            var jawaban = $(this).val();
-
-            // Simpan jawaban ke Local Storage
-            simpanJawabanKeLocalStorage(idSoal, jawaban);
-        });
-
-
+        // function showNotification(message) {
+        //     Swal.fire({
+        //         title: "Peringatan",
+        //         html: message,
+        //         icon: "warning",
+        //         showCancelButton: true,
+        //         confirmButtonText: "Ya",
+        //         cancelButtonText: "Tidak",
+        //     }).then(function(result) {
+        //         if (result.isConfirmed) {
+        //             // Pengguna mengklik tombol "Ya"
+        //             // Lakukan tindakan yang diperlukan saat pengguna setuju
+        //             // Misalnya, arahkan pengguna ke halaman lain dengan menggunakan window.location.href
+        //             window.location.href = "https://www.example.com";
+        //         } else {
+        //             // Pengguna mengklik tombol "Tidak"
+        //             // Lakukan tindakan yang diperlukan saat pengguna tidak setuju
+        //         }
+        //     });
+        // }
 
         var currentSoal = 0;
         var totalSoal = <?php echo count($soal_essay); ?>;
@@ -258,7 +260,6 @@ if (isset($_SESSION["waktu_start"])) {
                 selesaiButton.style.display = 'none';
             }
         }
-
 
         function previousSoal() {
             currentSoal--;
@@ -362,6 +363,7 @@ if (isset($_SESSION["waktu_start"])) {
                 cancelButtonText: 'Batal',
                 customClass: {
                     confirmButton: 'custom-confirm-button' // Mengatur kelas CSS tombol "OK" menjadi 'btn-danger'
+
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -400,25 +402,25 @@ if (isset($_SESSION["waktu_start"])) {
             }, 3000); // Menghilangkan peringatan setelah 3 detik
         }
 
-        // Memeriksa dukungan WebRTC pada browser
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            // Menggunakan navigator.mediaDevices.getUserMedia untuk meminta akses kamera
-            navigator.mediaDevices.getUserMedia({
-                    video: true
-                })
-                .then(function(stream) {
-                    // Akses kamera berhasil, dapatkan elemen video dan tampilkan stream video
-                    var videoElement = document.getElementById('videoElement');
-                    videoElement.srcObject = stream;
-                })
-                .catch(function(error) {
-                    // Kesalahan dalam meminta akses kamera, tampilkan pesan kesalahan
-                    console.error('Gagal mendapatkan akses kamera: ', error);
-                });
-        } else {
-            // Browser tidak mendukung WebRTC
-            console.error('Browser tidak mendukung WebRTC.');
-        }
+        // // Memeriksa dukungan WebRTC pada browser
+        // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        //     // Menggunakan navigator.mediaDevices.getUserMedia untuk meminta akses kamera
+        //     navigator.mediaDevices.getUserMedia({
+        //             video: true
+        //         })
+        //         .then(function(stream) {
+        //             // Akses kamera berhasil, dapatkan elemen video dan tampilkan stream video
+        //             var videoElement = document.getElementById('videoElement');
+        //             videoElement.srcObject = stream;
+        //         })
+        //         .catch(function(error) {
+        //             // Kesalahan dalam meminta akses kamera, tampilkan pesan kesalahan
+        //             console.error('Gagal mendapatkan akses kamera: ', error);
+        //         });
+        // } else {
+        //     // Browser tidak mendukung WebRTC
+        //     console.error('Browser tidak mendukung WebRTC.');
+        // }
     </script>
 
 

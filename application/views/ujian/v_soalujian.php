@@ -56,7 +56,7 @@ if (isset($_SESSION["waktu_start"])) {
                         <h3 class="box-title">Soal Ujian</h3>
                     </center>
                 </div><!-- /.box-header -->
-                <div class="box-body" style="overflow-y: scroll;height: 525px;">
+                <div class="box-body" style=" height: 525px;">
                     <form id="formSoal" role="form" action="<?php echo base_url(); ?>ruang_ujian/jawab_aksi" method="post" onsubmit="return confirm('Anda Yakin ?')">
                         <form id="formSoal" role="form" action="<?php echo base_url(); ?>ruang_ujian/jawab_aksi" method="post" onsubmit="return confirmSweetAlert()">
 
