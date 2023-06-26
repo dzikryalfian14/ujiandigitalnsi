@@ -30,10 +30,8 @@ $this->load->view('siswa/sidebar');
                 <dd>
                     <ol><br>
                         <li><b>Jadwal Ujian</b></li>
-                        di TAB Jadwal Ujian, terdapat jadwal ujian yang telah didaftarkan oleh admin sebagai peserta ujian bahwa anda berhak melaksanakan ujian. Apabila di ruang tersebut tidak tersedia jadwal ujian silahkan hubungin admin untuk mendapatkan informasi lebih lanjut
+                        di TAB Jadwal Ujian, terdapat jadwal ujian yang telah didaftarkan oleh admin sebagai peserta ujian bahwa anda berhak melaksanakan ujian. Apabila di ruang tersebut tidak tersedia jadwal ujian silahkan hubungin panitia untuk mendapatkan informasi lebih lanjut
                         selanjutnya, ketika anda sudah memiliki waktu ujian, silahkan anda klik tombol <b>Mulai</b> yang tersedia ketika waktu telah menunjukan mulainya waktu ujian.
-                        <li><b>Hasil Ujian</b></li>
-                        di TAB Hasil Ujian, anda dapat melihat hasil ujian yang telah anda lakukan di Ruang Jadwal Ujian, Hasil ini dapat dilihat langsung apabila soal berupa <b>Pilihan Ganda</b>, apabila soal tersebut soal <b>Essay</b> Fungsi tidak bekerja.
                         <li><b>Ganti Password</b></li>
                         di TAB Ganti Password, anda dapat mengganti password sesuai keinginan anda setelah anda mendapatkan password default dari pihak admin. ketika anda lupa password, anda dapat menghubungi pihak admin agar mendapatkan password terbaru.
                         <li><b>PERHATIAN</b></li>
@@ -41,7 +39,7 @@ $this->load->view('siswa/sidebar');
                 </dd>
             </dl>
         </div><!-- /.box-body -->
-        
+
 
 </section><!-- /.content -->
 

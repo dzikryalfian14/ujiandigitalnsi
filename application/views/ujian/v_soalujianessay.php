@@ -191,16 +191,16 @@ if (isset($_SESSION["waktu_start"])) {
             function showConfirmation() {
                 swal({
                     title: "Peringatan!",
-                    text: "Ujian Berakhir, Anda Terdeteksi Melanggar Tata Tertib Ujian",
+                    text: "Peringatan, Anda Terdeteksi Melanggar Tata Tertib Ujian",
                     icon: "warning",
-                    buttons: ["Batal", "Ya"],
+                    buttons: ["Lanjutkan", "Akhiri Ujian"],
                 }).then(function(value) {
                     if (value) {
                         // Aksi yang ingin Anda lakukan jika pengguna menekan "Ya"
                         document.getElementById("formSoal").submit();
                     } else {
                         // Aksi yang ingin Anda lakukan jika pengguna menekan "Batal"
-                        document.getElementById("formSoal").submit();
+                        // document.getElementById("formSoal").submit();
                     }
                 });
             }

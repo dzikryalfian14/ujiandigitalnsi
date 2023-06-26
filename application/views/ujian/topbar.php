@@ -20,7 +20,7 @@
                   <!-- The user image in the navbar-->
                   <img src="<?= base_url('image/avatar.png') ?>" class="user-image" alt="User Image">
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">Halo, <?php echo $this->session->userdata('nama'); ?></span>
+                  <span class="hidden-xs">Good Luck <?php echo $this->session->userdata('nama'); ?> !</span>
                 </a>
               </li>
             </ul>
